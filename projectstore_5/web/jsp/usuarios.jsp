@@ -21,19 +21,19 @@
                 <div class="card-body">
                     <form class="needs-validation" action="Controlador?menu=Usuarios" method="POST" novalidate>
                         <div class="form-group" >
-                            <label>ID</label>
-                            
-                            <c:if test="${usuarioEdit.idUsuario!=0}">
-                                <input  type="text" name="txtId" value="${usuarioEdit.idUsuario}" readonly="" 
+                            <label>Cédula Usuario</label>
+
+                            <c:if test="${usuarioEdit.cedulaUsuario!=0}">
+                                <input  type="text" name="txtId" value="${usuarioEdit.cedulaUsuario}" readonly="" 
                                         class="form-control">
                             </c:if>
-                                
-                            <c:if test="${usuarioEdit.idUsuario==0}">
+
+                            <c:if test="${usuarioEdit.cedulaUsuario==0}">
                                 <input  type="text" name="txtId" class="form-control" required="">
                                 <div class="valid-feedback">Campo OK</div>
                                 <div class="invalid-feedback">Complete los datos</div>
                             </c:if>
-                                
+
                         </div>
                         <div class="form-group" >
                             <label>Nombre</label>
@@ -72,17 +72,33 @@
                             </select>
                             <div class="valid-feedback">Campo OK</div>
                             <div class="invalid-feedback">Complete los datos</div>
-                        </div>
+                        </div><br>
                         <input type="submit" name="accion" value="Agregar" class="btn btn-info" >
                         <input type="submit" name="accion" value="Actualizar" class="btn btn-success" >
                     </form>
+                    
+                    <!-- FORMULARIO DE BUSQUEDA -->
+                    <form class="needs-validation" action="Controlador?menu=Usuarios" method="POST" novalidate>
+                        <br>
+                        <label>Buscar por Cédula Usuario</label>
+                        <c:if test="${usuarioEdit.cedulaUsuario!=0}">
+                            <input  type="text" name="txtId" value="${usuarioEdit.cedulaUsuario}" readonly="" class="form-control">
+                        </c:if>
+                        <c:if test="${usuarioEdit.cedulaUsuario==0}">
+                            <input  type="text" name="txtId" class="form-control" required="">
+                            <div class="valid-feedback">Campo OK</div>
+                            <div class="invalid-feedback">Complete los datos</div>
+                        </c:if>
+                        <br>
+                        <input type="submit" name="accion" value="Buscar" class="btn btn-warning" >                        
+                    </form>                
                 </div>
             </div>
             <div class="col-sm-8">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>CEDULA</th>
                             <th>NOMBRE</th>
                             <th>CLAVE</th>
                             <th>CORREO</th>
@@ -92,15 +108,15 @@
                     <tbody>
                         <c:forEach var="e" items="${usuarios}">
                             <tr>
-                                <td>${e.idUsuario}</td>
+                                <td>${e.cedulaUsuario}</td>
                                 <td>${e.nombreUsuario}</td>
                                 <td>${e.clave}</td>
                                 <td>${e.correo}</td>
                                 <td>${e.tipoUsuario}</td>
                                 <td>
-                                    <a href="Controlador?menu=Usuarios&accion=Editar&id=${e.idUsuario}" 
+                                    <a href="Controlador?menu=Usuarios&accion=Editar&id=${e.cedulaUsuario}" 
                                        class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                    <a href="Controlador?menu=Usuarios&accion=Eliminar&id=${e.idUsuario}" 
+                                    <a href="Controlador?menu=Usuarios&accion=Eliminar&id=${e.cedulaUsuario}" 
                                        class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></a>
                                     <!-- Modal -->
                                 </td>

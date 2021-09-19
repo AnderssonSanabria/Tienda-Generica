@@ -31,13 +31,21 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("tipos", tipos);
                     request.setAttribute("usuarioEdit", new modelo_user());
                     break;
+                case "Buscar":
+                    int CedulaB = Integer.valueOf(request.getParameter("txtId"));
+                    modelo_user busu = new modelo_user();
+                    String[] categoriasb = {"Administrador", "Cliente"};
+                    busu = usuarioDao.getUsuarioCedula(CedulaB);
+                    request.setAttribute("usuarioEdit", busu);
+                    request.setAttribute("categorias", categoriasb);
+                    break;
                 case "Agregar":
-                    int idUsuario = Integer.parseInt(request.getParameter("txtId"));
+                    int CdUsuario = Integer.parseInt(request.getParameter("txtId"));
                     String clave = request.getParameter("txtClave");
                     String nombreUsuario = request.getParameter("txtNombre");
                     String correo = request.getParameter("txtCorreo");
                     String tipoUsuario = request.getParameter("txtTipo");
-                    usuario.setIdUsuario(idUsuario);
+                    usuario.setCedulaUsuario(CdUsuario);
                     usuario.setClave(clave);
                     usuario.setCorreo(correo);
                     usuario.setNombreUsuario(nombreUsuario);
@@ -46,27 +54,28 @@ public class Controlador extends HttpServlet {
                     String mensaje = "";
                     if (creado) {
                         mensaje = "Usuario Creado";
-                    } else {
+                    }
+                    else {
                         mensaje = "Faltan Datos del Usuario";
                     }
                     request.setAttribute("mensaje", mensaje);
                     request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
                     break;
                 case "Editar":
-                    int ideu = Integer.valueOf(request.getParameter("id"));
+                    int CdU = Integer.valueOf(request.getParameter("CedulaU"));
                     modelo_user usu = new modelo_user();
                     String[] categorias = {"Administrador", "Cliente"};
-                    usu = usuarioDao.getUsuarioId(ideu);
+                    usu = usuarioDao.getUsuarioCedula(CdU);
                     request.setAttribute("usuarioEdit", usu);
                     request.setAttribute("categorias", categorias);
                     break;
                 case "Actualizar":
-                    int idUsuarioa = Integer.parseInt(request.getParameter("txtId"));
+                    int cdUsuarioa = Integer.parseInt(request.getParameter("txtId"));
                     String clavea = request.getParameter("txtClave");
                     String nombreUsuarioa = request.getParameter("txtNombre");
                     String correoa = request.getParameter("txtCorreo");
                     String tipoUsuarioa = request.getParameter("txtTipo");
-                    usuario.setIdUsuario(idUsuarioa);
+                    usuario.setCedulaUsuario(cdUsuarioa);
                     usuario.setClave(clavea);
                     usuario.setCorreo(correoa);
                     usuario.setNombreUsuario(nombreUsuarioa);
@@ -75,8 +84,8 @@ public class Controlador extends HttpServlet {
                     request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
                     break;
                 case "Eliminar":
-                    int idUsuarioe = Integer.valueOf(request.getParameter("id"));
-                    usuarioDao.eliminarUsuario(idUsuarioe);
+                    int cdUsuarioa2 = Integer.valueOf(request.getParameter("CedulaU"));
+                    usuarioDao.eliminarUsuario(cdUsuarioa2);
                     request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
                     break;
                 default:

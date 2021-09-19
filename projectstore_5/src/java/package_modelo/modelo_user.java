@@ -4,7 +4,7 @@ package package_modelo;
 public class modelo_user {
     
     // ELEMENTOS DE MODELO
-    private int idUsuario;
+    private int cedulaUsuario;
     private String nombreUsuario;
     private String clave;
     private String correo;
@@ -14,8 +14,8 @@ public class modelo_user {
     public modelo_user() {}
 
     // CONSTRUCTOR COMPLETO
-    public modelo_user(int idUsuario, String nombreUsuario, String clave,String correo, String tipoUsuario) {
-        this.idUsuario = idUsuario;
+    public modelo_user(int cedulaUsuario, String nombreUsuario, String clave,String correo, String tipoUsuario) {
+        this.cedulaUsuario = cedulaUsuario;
         this.nombreUsuario = nombreUsuario;
         this.clave = clave;
         this.correo = correo;
@@ -30,11 +30,11 @@ public class modelo_user {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    public int getIdUsuario() {
-        return idUsuario;
+    public int getCedulaUsuario() {
+        return cedulaUsuario;
     }
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setCedulaUsuario(int cedulaUsuario) {
+        this.cedulaUsuario = cedulaUsuario;
     }
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -54,5 +54,5 @@ public class modelo_user {
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-    
+
 }

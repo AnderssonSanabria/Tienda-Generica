@@ -58,7 +58,7 @@ public class dao_user {
             res = stm.executeQuery(sql);
             while (res.next()) { // Recorrer todo el ResultSet
                 modelo_user usu = new modelo_user(); // Instanciamos un objeto tipo modelo_user
-                usu.setIdUsuario(res.getInt(1));
+                usu.setCedulaUsuario(res.getInt(1));
                 usu.setNombreUsuario(res.getString(2));
                 usu.setClave(res.getString(3));
                 usu.setCorreo(res.getString(4));
@@ -75,16 +75,16 @@ public class dao_user {
         return usuarios; // Devuelve el ArrayList usuarios
     }
 
-    // AGREGAR USUARIO
+    // AGREGAR USUARIO VERIFICACION
     public boolean agregarUsuario(modelo_user usuario) {
         boolean registrar = false; // Permite identificar si ya existe el usuario
         boolean encontrado = false; // Encuentra un usuario con el correo Institucional
-        String buscar = "SELECT * FROM usuario where idUsuario = " // Instrucción sql
-                + usuario.getIdUsuario(); // Para buscar un registro con el mismo id
+        String buscar = "SELECT * FROM usuario where cedulaUsuario = " // Instrucción sql
+                + usuario.getCedulaUsuario(); // Para buscar un registro con el mismo id
         encontrado = buscar(buscar); // Ejecutamos el método con la consulta
         if (!encontrado) {
             // La instrucción para insertar el registro
-            String sql = "INSERT INTO usuario values (" + usuario.getIdUsuario() + ",'" + usuario.getNombreUsuario()
+            String sql = "INSERT INTO usuario values (" + usuario.getCedulaUsuario() + ",'" + usuario.getNombreUsuario()
                     + "','" + usuario.getClave() + "','" + usuario.getCorreo() + "','"
                     + usuario.getTipoUsuario() + "')";
             try {
@@ -123,16 +123,16 @@ public class dao_user {
         return encontrado;
     }
 
-    // BUSCAR USUARIO POR ID
-    public modelo_user getUsuarioId(int id) {
-        String sql = "SELECT * FROM usuario WHERE idUsuario=" + id;
+    // BUSCAR USUARIO POR CEDULA
+    public modelo_user getUsuarioCedula(int CedulaB) {
+        String sql = "SELECT * FROM usuario WHERE cedulaUsuario=" + CedulaB;
         modelo_user usu = new modelo_user();
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             res = ps.executeQuery();
             while (res.next()) {
-                usu.setIdUsuario(res.getInt(1));
+                usu.setCedulaUsuario(res.getInt(1));
                 usu.setNombreUsuario(res.getString(2));
                 usu.setClave(res.getString(3));
                 usu.setCorreo(res.getString(4));
@@ -156,8 +156,8 @@ public class dao_user {
         String sql = "UPDATE usuario SET nombreUsuario = '" + usuario.getNombreUsuario()
                 + "', correo = '" + usuario.getCorreo() + "', tipoUsuario='"
                 + usuario.getTipoUsuario() + "'" + ", clave = '" + usuario.getClave() + "'"
-                + " WHERE idUsuario = " + usuario.getIdUsuario();
-        System.out.println("\n\n>> >> >> " + sql);
+                + " WHERE cedulaUsuario = " + usuario.getCedulaUsuario();
+        System.out.println("\n\n>> >> >> dao_user / ACTUALIZACION DE DATOS" + sql);
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
@@ -175,9 +175,9 @@ public class dao_user {
     public boolean eliminarUsuario(int id) {
         boolean encontrado = false;
         boolean eliminar = false;
-        String buscar = "SELECT * FROM usuario WHERE idUsuario=" + id;
+        String buscar = "SELECT * FROM usuario WHERE cedulaUsuario=" + id;
         encontrado = buscar(buscar);
-        String sql = "DELETE FROM usuario WHERE idUsuario = " + id;
+        String sql = "DELETE FROM usuario WHERE cedulaUsuario = " + id;
         if (encontrado) {
             try {
                 con = cn.Conexion();
