@@ -10,12 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import package_modelo.modelo_user;
 import package_dao.dao_user;
 
 // CUERPO DE PROCESOS
 public class Controlador extends HttpServlet {
 
+    // IMPORTACION DE MODELOS
     modelo_user usuario = new modelo_user();
     dao_user usuarioDao = new dao_user();
 
@@ -23,14 +27,17 @@ public class Controlador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
+        String mensaje = "";
         if (menu.equals("Usuarios")) {
             switch (accion) {
+                
                 case "Listar":
                     String tipos[] = {"Administrador", "Cliente"};
                     request.setAttribute("usuarios", usuarioDao.getUsuarios());
                     request.setAttribute("tipos", tipos);
                     request.setAttribute("usuarioEdit", new modelo_user());
                     break;
+                    
                 case "Buscar":
                     int CedulaB = Integer.valueOf(request.getParameter("txtId"));
                     modelo_user busu = new modelo_user();
@@ -39,6 +46,7 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("usuarioEdit", busu);
                     request.setAttribute("categorias", categoriasb);
                     break;
+                    
                 case "Agregar":
                     int CdUsuario = Integer.parseInt(request.getParameter("txtId"));
                     String clave = request.getParameter("txtClave");
@@ -51,16 +59,15 @@ public class Controlador extends HttpServlet {
                     usuario.setNombreUsuario(nombreUsuario);
                     usuario.setTipoUsuario(tipoUsuario);
                     boolean creado = usuarioDao.agregarUsuario(usuario);
-                    String mensaje = "";
                     if (creado) {
                         mensaje = "Usuario Creado";
-                    }
-                    else {
+                    } else {
                         mensaje = "Faltan Datos del Usuario";
                     }
                     request.setAttribute("mensaje", mensaje);
                     request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
                     break;
+                    
                 case "Editar":
                     int CdU = Integer.valueOf(request.getParameter("CedulaU"));
                     modelo_user usu = new modelo_user();
@@ -69,6 +76,7 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("usuarioEdit", usu);
                     request.setAttribute("categorias", categorias);
                     break;
+                    
                 case "Actualizar":
                     int cdUsuarioa = Integer.parseInt(request.getParameter("txtId"));
                     String clavea = request.getParameter("txtClave");
@@ -81,8 +89,17 @@ public class Controlador extends HttpServlet {
                     usuario.setNombreUsuario(nombreUsuarioa);
                     usuario.setTipoUsuario(tipoUsuarioa);
                     usuarioDao.actualizarUsuario(usuario);
+                    boolean editado = usuarioDao.actualizarUsuario(usuario);
+                    if (editado) {
+                        mensaje = "Usuario Actualizado";
+                    }
+                    else {
+                        mensaje = "Faltan datos";
+                    }
+                    request.setAttribute("mensaje", mensaje);
                     request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
                     break;
+                    
                 case "Eliminar":
                     int cdUsuarioa2 = Integer.valueOf(request.getParameter("CedulaU"));
                     usuarioDao.eliminarUsuario(cdUsuarioa2);
@@ -105,7 +122,7 @@ public class Controlador extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -118,7 +135,7 @@ public class Controlador extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 

@@ -142,6 +142,7 @@ div.DivClassSecctionLower {
     justify-content: center;
     align-items: center;
 }
+
 /*-----------------------------------------------------------------------------
 ELEMENT BUTTON */
 
@@ -158,7 +159,6 @@ button.ButtonClassLogin {
     /*GROSOR DE BORDE DE BOTON*/
     border: 0;
 }
-
 
 /*-----------------------------------------------------------------------------
 ELEMENT CAJAS */

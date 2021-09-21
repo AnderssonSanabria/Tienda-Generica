@@ -100,6 +100,9 @@ public class dao_user {
                 e.printStackTrace();
             }
         }
+        else {
+            System.out.println("PROCESO DE VERIFICACION DE BUSQUEDA NO REALIZADO");
+        }
         return registrar;
     }
 
