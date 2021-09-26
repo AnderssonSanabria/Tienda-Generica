@@ -14,21 +14,6 @@ import package_dao.dao_user;
 // CUERPO DE LOGIN
 public class LoginServlet extends HttpServlet {
 
-    /*
-    public class ClaseServletHTML extends HttpServlet {
-        public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            response.setContentType("text/html");
-            PrintWriter out = response.getWriter();
-            out.println("<!DOCTYPE HTML PUBLIC \"" + "-//W3C//DTD HTML 4.0 " + "Transitional//EN\">");
-            out.println("<HTML>");
-            out.println("<BODY>");
-            out.println("<h1>Titulo</h1>");
-            out.println("<br>Servlet que genera HTML");
-            out.println("</BODY>");
-            out.println("</HTML>");
-        } // public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
-    } // public class ClaseServletHTML extends HttpServlet {}
-    */
     
     // PROCESOS DE LOGINSERVLET
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
