@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <!-- ENCABEZADO -->
+    <head>
+        <!-- DEFINE LOS CARACTERES ALFA-NUMERICOS -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CODIGO INHABILITADO POR NUEVO MODELO
+        <link rel="stylesheet" href="../font/css/font-awesome.min.css">
+        <link rel='stylesheet prefetch' href='../bootstrap/css/bootstrap.min.css'>
+        -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <!-- CODIGO CSS -->
+        <style type="text/css">* {font-family: Verdana, Geneva, Tahoma, sans-serif;}</style>
+        <!-- CODIGO SCRIPT -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <title>User error</title>
+    </head>
+
+    <!-- CUERPO DE HTML -->
+    <body>
+        
+        <!-- ESPACIO ERROR -->
+        <div class="container">
+            
+            <!-- Trigger the modal with a button -->
+            <script>
+                $(document).ready(function () {
+                    // Show the Modal on load
+                    $("#myModal").modal("show");
+                    $('#cerrar').click(function () {
+                        /* when the submit button in the modal is clicked, submit the form */
+                        //alert('submitting');
+                        //$('#formfield').submit();
+                        window.location.href = "../login.html";
+                    });
+                });
+            </script>
+
+            <!-- MODAL -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    
+                    <!-- MODAL CONTENT -->
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">¡Error!</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Usuario y contraseña incorrectos.</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+
+                    </div> <!-- MODAL CONTENT -->
+                    
+                </div>
+            </div> <!-- MODAL -->
+
+        </div>
+    </body>
+</html>
