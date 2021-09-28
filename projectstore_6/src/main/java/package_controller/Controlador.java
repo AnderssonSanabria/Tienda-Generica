@@ -83,7 +83,7 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Editar":
-                    int CdU = Integer.valueOf(request.getParameter("CedulaU"));
+                    int CdU = Integer.valueOf(request.getParameter("id"));
                     modelo_user usu = new modelo_user();
                     String[] categorias = {"Administrador", "Cliente"};
                     usu = usuarioDao.getUsuarioCedula(CdU);
@@ -114,7 +114,7 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Eliminar":
-                    int cdUsuarioa2 = Integer.valueOf(request.getParameter("CedulaU"));
+                    int cdUsuarioa2 = Integer.valueOf(request.getParameter("id"));
                     usuarioDao.eliminarUsuario(cdUsuarioa2);
                     request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
                     break;
