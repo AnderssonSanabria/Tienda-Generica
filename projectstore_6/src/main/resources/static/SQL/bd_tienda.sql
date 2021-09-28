@@ -15,6 +15,34 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+--
+-- Table structure for table `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuarios` (
+  `cedula_usuario` bigint NOT NULL,
+  `nombre_usuario` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email_usuario` varchar(255) NOT NULL,
+  `rol` varchar(35) DEFAULT NULL,
+  PRIMARY KEY (`cedula_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'andersson','123','andersson1493@gmail.com','Administrador'),(2,'admin','123','a@a.c','Administrador');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `clientes`
 --
@@ -40,6 +68,87 @@ LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `proveedores`
+--
+
+DROP TABLE IF EXISTS `proveedores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `proveedores` (
+  `nit_proveedor` bigint NOT NULL,
+  `nombre_proveedor` varchar(255) DEFAULT NULL,
+  `direccion_proveedor` varchar(255) DEFAULT NULL,
+  `telefono_proveedor` varchar(255) DEFAULT NULL,
+  `ciudad_proveedor` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`nit_proveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `proveedores`
+--
+
+LOCK TABLES `proveedores` WRITE;
+/*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `productos`
+--
+
+DROP TABLE IF EXISTS `productos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `productos` (
+  `codigo_producto` bigint NOT NULL,
+  `iva_compra` double DEFAULT NULL,
+  `nit_proveedor` bigint NOT NULL,
+  `nombre_producto` varchar(255) DEFAULT NULL,
+  `precio_compra` double DEFAULT NULL,
+  `precio_venta` double DEFAULT NULL,
+  PRIMARY KEY (`codigo_producto`),
+  KEY `nit_proveedor` (`nit_proveedor`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`nit_proveedor`) REFERENCES `proveedores` (`nit_proveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productos`
+--
+
+LOCK TABLES `productos` WRITE;
+
+--
+-- Table structure for table `ventas`
+--
+
+DROP TABLE IF EXISTS `ventas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ventas` (
+  `codigo_venta` bigint NOT NULL,
+  `cedula_cliente` bigint NOT NULL,
+  `cedula_usuario` bigint NOT NULL,
+  `iva_venta` double DEFAULT NULL,
+  `total_venta` double DEFAULT NULL,
+  `valor_venta` double DEFAULT NULL,
+  PRIMARY KEY (`codigo_venta`),
+  KEY `cedula_cliente` (`cedula_cliente`),
+  KEY `cedula_usuario` (`cedula_usuario`),
+  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cedula_cliente`) REFERENCES `clientes` (`cedula_cliente`),
+  CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuarios` (`cedula_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ventas`
+--
+
+LOCK TABLES `ventas` WRITE;
+
 
 --
 -- Table structure for table `detalle_ventas`
@@ -73,115 +182,11 @@ LOCK TABLES `detalle_ventas` WRITE;
 /*!40000 ALTER TABLE `detalle_ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `productos`
---
 
-DROP TABLE IF EXISTS `productos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `productos` (
-  `codigo_producto` bigint NOT NULL,
-  `iva_compra` double DEFAULT NULL,
-  `nit_proveedor` bigint NOT NULL,
-  `nombre_producto` varchar(255) DEFAULT NULL,
-  `precio_compra` double DEFAULT NULL,
-  `precio_venta` double DEFAULT NULL,
-  PRIMARY KEY (`codigo_producto`),
-  KEY `nit_proveedor` (`nit_proveedor`),
-  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`nit_proveedor`) REFERENCES `proveedores` (`nit_proveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `productos`
---
-
-LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `proveedores`
---
-
-DROP TABLE IF EXISTS `proveedores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `proveedores` (
-  `nit_proveedor` bigint NOT NULL,
-  `nombre_proveedor` varchar(255) DEFAULT NULL,
-  `direccion_proveedor` varchar(255) DEFAULT NULL,
-  `telefono_proveedor` varchar(255) DEFAULT NULL,
-  `ciudad_proveedor` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`nit_proveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `proveedores`
---
-
-LOCK TABLES `proveedores` WRITE;
-/*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
-/*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usuarios`
---
-
-DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuarios` (
-  `cedula_usuario` bigint NOT NULL,
-  `nombre_usuario` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email_usuario` varchar(255) NOT NULL,
-  `rol` varchar(35) DEFAULT NULL,
-  PRIMARY KEY (`cedula_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usuarios`
---
-
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'andersson','123','andersson1493@gmail.com','Administrador'),(2,'admin','123','a@a.c','Administrador');
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ventas`
---
-
-DROP TABLE IF EXISTS `ventas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ventas` (
-  `codigo_venta` bigint NOT NULL,
-  `cedula_cliente` bigint NOT NULL,
-  `cedula_usuario` bigint NOT NULL,
-  `iva_venta` double DEFAULT NULL,
-  `total_venta` double DEFAULT NULL,
-  `valor_venta` double DEFAULT NULL,
-  PRIMARY KEY (`codigo_venta`),
-  KEY `cedula_cliente` (`cedula_cliente`),
-  KEY `cedula_usuario` (`cedula_usuario`),
-  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cedula_cliente`) REFERENCES `clientes` (`cedula_cliente`),
-  CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuarios` (`cedula_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ventas`
---
-
-LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
