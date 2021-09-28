@@ -154,17 +154,17 @@ public class Controlador extends HttpServlet {
                     // IMORTANTE, ESTE CAMBIO CAMBIA DRASTICAMENTE, SE DEBERA GUARDAR EL ORDEN SEGUN LA TABLA DE BASE DE DATOS
                     // REVISAR LA DEFINICION DE TIPOS DE VARIABLES
                     // TENER EN CUENTA LOS NOMBRES DE LAS ENTRADAS SI ES QUE TAMBIEN SE CAMIA LOS BONOTES EN EL HTML O VISTA PROVEEDORES
-                    int idUsuario = Integer.parseInt(request.getParameter("txtId"));
+                    int nit = Integer.parseInt(request.getParameter("txtId"));
                     String clave = request.getParameter("txtClave");
                     String nombreUsuario = request.getParameter("txtNombre");
                     String correo = request.getParameter("txtCorreo");
                     String tipoUsuario = request.getParameter("txtTipo");
-                    usuario.setCedulaUsuario(idUsuario);
-                    usuario.setClave(clave);
-                    usuario.setCorreo(correo);
-                    usuario.setNombreUsuario(nombreUsuario);
-                    usuario.setTipoUsuario(tipoUsuario);
-                    boolean creado = usuarioDao.agregarUsuario(usuario);
+                    proveedor.setSupplierNit(nit);
+                    proveedor.setSupplierName(clave);
+                    proveedor.setSupplierAddress(correo);
+                    proveedor.setSupplierPhone(nit);
+                    proveedor.setSupplierCity(tipoUsuario);
+                    boolean creado = proveedorDao.agregarProveedor(proveedor);
                     if (creado) {
                         mensaje = "Usuario Creado";
                     } else {

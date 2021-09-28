@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class conexion_database {
     private Connection con;
     Statement consulta;
-    private static final String URL = "jdbc:mysql://localhost:3306/proyecto?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8"; {
+    private static final String URL = "jdbc:mysql://localhost:3306/bd_tienda?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8"; {
         System.out.println("\n\n>> >> >> CONEXION / INICIO PROCESO DE CONEXION\n");
     }
     private static final String USER = "root"; {
