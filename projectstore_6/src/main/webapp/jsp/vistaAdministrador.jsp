@@ -65,7 +65,7 @@
                     </li>
 
                     <li class="ClassLiMenu">
-                        <a target="myFrame" href="../Controlador?menu=Proveedor&accion=Listar">
+                        <a target="myFrame" href="../Controlador?menu=Proveedores&accion=Listar">
                             <h3>Proveedores</h3>
                         </a>
                     </li>

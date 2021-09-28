@@ -126,7 +126,13 @@ public class Controlador extends HttpServlet {
         
         
         // REALIZA ACCION DE ENTRADA DE VISTA proveedor.jsp
-        else if (menu.equals("Proveedor")) {
+        else if (menu.equals("Proveedores")) {
+            int nit ;
+            String nombre_proveedor ;
+            String direccion_proveedor;
+            int telefono_proveedor;
+            String ciudad_proveedor;
+            
             switch (accion) {
 
                 /* **** DE LOS ELEMENTOS A CONTINUACION
@@ -141,12 +147,8 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Buscar":
-                    int idp = Integer.valueOf(request.getParameter("txtId"));
-                    modelo_supplier bpro = new modelo_supplier();
-                    String[] categoriasb = {"Administrador", "Cliente"};
-                    bpro = proveedorDao.getProveedorId(idp);
-                    request.setAttribute("proveedorEdit", bpro);
-                    request.setAttribute("categorias", categoriasb);
+                    nit = Integer.valueOf(request.getParameter("txtIdp"));
+                    request.setAttribute("proveedorEdit", proveedorDao.getProveedorId(nit));
                     break;
 
                 case "Agregar":
@@ -154,54 +156,51 @@ public class Controlador extends HttpServlet {
                     // IMORTANTE, ESTE CAMBIO CAMBIA DRASTICAMENTE, SE DEBERA GUARDAR EL ORDEN SEGUN LA TABLA DE BASE DE DATOS
                     // REVISAR LA DEFINICION DE TIPOS DE VARIABLES
                     // TENER EN CUENTA LOS NOMBRES DE LAS ENTRADAS SI ES QUE TAMBIEN SE CAMIA LOS BONOTES EN EL HTML O VISTA PROVEEDORES
-                    int nit = Integer.parseInt(request.getParameter("txtId"));
-                    String clave = request.getParameter("txtClave");
-                    String nombreUsuario = request.getParameter("txtNombre");
-                    String correo = request.getParameter("txtCorreo");
-                    String tipoUsuario = request.getParameter("txtTipo");
+                    nit = Integer.parseInt(request.getParameter("txtIdp"));
+                    nombre_proveedor = request.getParameter("txtNombrep");
+                    direccion_proveedor = request.getParameter("txtDireccionp");
+                    telefono_proveedor = Integer.parseInt(request.getParameter("txtTelefonop"));
+                    ciudad_proveedor = request.getParameter("txtCiudadp");
                     proveedor.setSupplierNit(nit);
-                    proveedor.setSupplierName(clave);
-                    proveedor.setSupplierAddress(correo);
-                    proveedor.setSupplierPhone(nit);
-                    proveedor.setSupplierCity(tipoUsuario);
+                    proveedor.setSupplierName(nombre_proveedor);
+                    proveedor.setSupplierAddress(direccion_proveedor);
+                    proveedor.setSupplierPhone(telefono_proveedor);
+                    proveedor.setSupplierCity(ciudad_proveedor);
                     boolean creado = proveedorDao.agregarProveedor(proveedor);
                     if (creado) {
                         mensaje = "Usuario Creado";
                     } else {
-                        mensaje = "Faltan Datos del Usuario";
+                        mensaje = "Faltan Datos del Proveedor";
                     }
                     request.setAttribute("mensaje", mensaje);
-                    request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
+                    request.getRequestDispatcher("Controlador?menu=Proveedores&accion=Listar").forward(request, response);
                     break;
 
                 case "Editar":
-                    int ideu = Integer.valueOf(request.getParameter("id"));
-                    modelo_user usu = new modelo_user(); // SE DEBE CAMBIAR LA IMPORTACION DEL MODEL POR EL DE modelu_supplier
-                    String[] categorias = {"Administrador", "Cliente"};
-                    usu = usuarioDao.getUsuarioCedula(ideu); // SE DEBE MODIFICAR ESTE ELEMENTO POR EL MODEL DE PROVEEDOR
-                    request.setAttribute("usuarioEdit", usu);
-                    request.setAttribute("categorias", categorias);
+                    nit = Integer.valueOf(request.getParameter("txtIdp"));
+                    request.setAttribute("proveedorEdit", proveedorDao.getProveedorId(nit));
                     break;
 
+
                 case "Actualizar":
-                    int idUsuarioa = Integer.parseInt(request.getParameter("txtId"));
-                    String clavea = request.getParameter("txtClave");
-                    String nombreUsuarioa = request.getParameter("txtNombre");
-                    String correoa = request.getParameter("txtCorreo");
-                    String tipoUsuarioa = request.getParameter("txtTipo");
-                    usuario.setCedulaUsuario(idUsuarioa);
-                    usuario.setClave(clavea);
-                    usuario.setCorreo(correoa);
-                    usuario.setNombreUsuario(nombreUsuarioa);
-                    usuario.setTipoUsuario(tipoUsuarioa);
-                    usuarioDao.actualizarUsuario(usuario);
-                    request.getRequestDispatcher("Controlador?menu=Proveedor&accion=Listar").forward(request, response);
+                    nit = Integer.parseInt(request.getParameter("txtIdp"));
+                    nombre_proveedor = request.getParameter("txtNombrep");
+                    direccion_proveedor = request.getParameter("txtDireccionp");
+                    telefono_proveedor = Integer.parseInt(request.getParameter("txtTelefonop"));
+                    ciudad_proveedor = request.getParameter("txtCiudadp");
+                    proveedor.setSupplierNit(nit);
+                    proveedor.setSupplierName(nombre_proveedor);
+                    proveedor.setSupplierAddress(direccion_proveedor);
+                    proveedor.setSupplierPhone(telefono_proveedor);
+                    proveedor.setSupplierCity(ciudad_proveedor);
+                    proveedorDao.actualizarProveedor(proveedor);
+                    request.getRequestDispatcher("Controlador?menu=Proveedores&accion=Listar").forward(request, response);
                     break;
 
                 case "Eliminar":
-                    int idUsuarioe = Integer.valueOf(request.getParameter("id"));
-                    usuarioDao.eliminarUsuario(idUsuarioe);
-                    request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
+                    nit= Integer.valueOf(request.getParameter("txtIdp"));
+                    proveedorDao.eliminarProveedor(nit);
+                    request.getRequestDispatcher("Controlador?menu=Proveedores&accion=Listar").forward(request, response);
                     break;
 
                 default:
