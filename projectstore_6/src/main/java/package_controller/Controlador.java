@@ -16,9 +16,11 @@ import javax.swing.JOptionPane;
 // IMPORTACION DE MODELOS
 import package_modelo.modelo_user;
 import package_modelo.modelo_supplier;
+import package_modelo.modelo_customer;
 // IMPORTACION DE DAO PROCESOS
 import package_dao.dao_user;
 import package_dao.dao_supplier;
+import package_dao.dao_customer;
 
 // CUERPO DE PROCESOS
 public class Controlador extends HttpServlet {
@@ -26,10 +28,12 @@ public class Controlador extends HttpServlet {
     // IMPORTACION DE MODELOS
     modelo_user usuario = new modelo_user();
     modelo_supplier proveedor = new modelo_supplier();
+    modelo_customer MCustomer = new modelo_customer();
 
     // IMPORTACION DE DAO
     dao_user usuarioDao = new dao_user();
     dao_supplier proveedorDao = new dao_supplier();
+    dao_customer customerDao = new dao_customer();
 
     // CRUD DE USUARIO
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -83,7 +87,7 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Editar":
-                    int CdU = Integer.valueOf(request.getParameter("CedulaU"));
+                    int CdU = Integer.valueOf(request.getParameter("id"));
                     modelo_user usu = new modelo_user();
                     String[] categorias = {"Administrador", "Cliente"};
                     usu = usuarioDao.getUsuarioCedula(CdU);
@@ -114,17 +118,16 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Eliminar":
-                    int cdUsuarioa2 = Integer.valueOf(request.getParameter("CedulaU"));
+                    int cdUsuarioa2 = Integer.valueOf(request.getParameter("id"));
                     usuarioDao.eliminarUsuario(cdUsuarioa2);
                     request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
                     break;
+                    
                 default:
                     throw new AssertionError();
             }
             request.getRequestDispatcher("jsp/usuarios.jsp").forward(request, response);
         } // if (menu.equals("Usuarios")) {}
-        
-        
         // REALIZA ACCION DE ENTRADA DE VISTA proveedor.jsp
         else if (menu.equals("Proveedor")) {
             switch (accion) {
@@ -209,7 +212,18 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("jsp/proveedor.jsp").forward(request, response);
         } // else if (menu.equals("Proveedor")) {}
-
+        
+        
+        // REALIZA ACCION DE ENTRADA DE VISTA ViewCustomer.jsp
+        else if (menu.equals("Customer")) {
+            switch (accion) {
+                case "Listar":
+                    request.setAttribute("Mcostumer", customerDao.ProcAddCustomer());
+                    request.setAttribute("CustomerEdit", new modelo_customer());
+                    break;
+            }
+            request.getRequestDispatcher("jsp/ViewCustomer.jsp").forward(request, response);
+        }
     } // protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

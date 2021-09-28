@@ -20,7 +20,7 @@
     </head>
 
     <!-- CUERPO DE DOCUMENTO -->
-    <body>
+    <body style="background-color: gray">
 
         <!-- ELEMENTOS JAVA -->
         <%
@@ -59,13 +59,13 @@
                     </li>
 
                     <li class="ClassLiMenu">
-                        <a target="myFrame" href="#">
+                        <a target="myFrame" href="../Controlador?menu=Customer&accion=Listar">
                             <h3>Clientes</h3>
                         </a>
                     </li>
 
                     <li class="ClassLiMenu">
-                        <a target="myFrame" href="../Controlador?menu=Proveedor&accion=Listar">
+                        <a target="myFrame" href="rememberpassword.html">
                             <h3>Proveedores</h3>
                         </a>
                     </li>
