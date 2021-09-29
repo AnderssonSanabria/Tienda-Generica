@@ -25,7 +25,7 @@ public class dao_supplier {
 
     // AGREGAR PROVEEDOR
     public List<modelo_supplier> getProveedor() {
-        String sql = "SELECT * FROM table_supplier";
+        String sql = "SELECT * FROM proveedores";
         List<modelo_supplier> proveedor = new ArrayList<>();
         try {
             con = cn.Conexion();
@@ -53,12 +53,12 @@ public class dao_supplier {
     public boolean agregarProveedor(modelo_supplier proveedor) {
         boolean registrar = false; // Permite identificar si ya existe el usuario
         boolean encontrado = false; // Encuentra un usuario con el correo Institucional
-        String buscar = "SELECT * FROM table_supplier where SupplierNit = " // Instrucción sql
+        String buscar = "SELECT * FROM proveedores where nit_proveedor = " // Instrucción sql
                 + proveedor.getSupplierNit(); // Para buscar un registro con el mismo id
         encontrado = buscar(buscar); // Ejecutamos el método con la consulta
         if (!encontrado) {
             // La instrucción para insertar el registro
-            String sql = "INSERT INTO table_supplier values (" + proveedor.getSupplierNit() + ",'" + proveedor.getSupplierName()
+            String sql = "INSERT INTO proveedores values (" + proveedor.getSupplierNit() + ",'" + proveedor.getSupplierName()
                     + "','" + proveedor.getSupplierAddress() + "','" + proveedor.getSupplierPhone() + "','"
                     + proveedor.getSupplierCity() + "')";
             try {
@@ -97,7 +97,7 @@ public class dao_supplier {
 
     // BUSCAR USUARIO POR ID
     public modelo_supplier getProveedorId(int id) { // **** SE RECOMIENDA CAMBIAR ESTE CODIGO SI ES NECESARIO
-        String sql = "SELECT * FROM table_supplier WHERE SupplierNit=" + id;
+        String sql = "SELECT * FROM proveedores WHERE nit_proveedor=" + id;
         modelo_supplier sup = new modelo_supplier();
         try {
             con = cn.Conexion();
@@ -125,10 +125,10 @@ public class dao_supplier {
     public boolean actualizarProveedor(modelo_supplier proveedor) {
         boolean encontrado = false;
         boolean actualizar = false;
-        String sql = "UPDATE table_supplier SET SupplierName = '" + proveedor.getSupplierName()
-                + "', SupplierAddress = '" + proveedor.getSupplierAddress()+ "', SupplierPhone='"
-                + proveedor.getSupplierPhone()+ "'" + ", SupplierCity = '" + proveedor.getSupplierCity()+ "'"
-                + " WHERE SupplierNit = " + proveedor.getSupplierNit();
+        String sql = "UPDATE proveedores SET nombre_proveedor = '" + proveedor.getSupplierName()
+                + "', direccion_proveedor = '" + proveedor.getSupplierAddress()+ "', telefono_proveedor='"
+                + proveedor.getSupplierPhone()+ "'" + ", ciudad_proveedor = '" + proveedor.getSupplierCity()+ "'"
+                + " WHERE nit_proveedor = " + proveedor.getSupplierNit();
         System.out.println("\n\n>> >> >> " + sql);
         try {
             con = cn.Conexion();
@@ -146,9 +146,9 @@ public class dao_supplier {
     public boolean eliminarProveedor(int id) {
         boolean encontrado = false;
         boolean eliminar = false;
-        String buscar = "SELECT * FROM table_supplier WHERE SupplierNit=" + id;
+        String buscar = "SELECT * FROM proveedores WHERE nit_proveedor=" + id;
         encontrado = buscar(buscar);
-        String sql = "DELETE FROM table_supplier WHERE SupplierNit = " + id;
+        String sql = "DELETE FROM proveedores WHERE nit_proveedor = " + id;
         if (encontrado) {
             try {
                 con = cn.Conexion();

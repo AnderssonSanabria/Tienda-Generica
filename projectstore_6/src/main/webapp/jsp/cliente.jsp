@@ -1,8 +1,9 @@
 <%-- 
-    Document   : proveedores
-    Created on : 6/09/2021, 8:44:17 p. m.
-    Author     : Carlos Beltrán
+    Document   : cliente
+    Created on : 28/09/2021, 09:21:16 PM
+    Author     : ander
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -28,61 +29,61 @@
                 <div class="card-body">
                     
                     <!--MENSAJE -->
-                    <form class="needs-validation" action="Controlador?menu=Proveedores" method="POST" novalidate>
+                    <form class="needs-validation" action="Controlador?menu=Clientes" method="POST" novalidate>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert" >
                             <strong>${mensaje}</strong>
                         </div>
                         <div class="form-group" >
-                            <label>Nit Proveedor</label>
+                            <label>Cedula Cliente</label>
 
                             <!--PROCESO JAVA -->
-                            <c:if test="${proveedorEdit.getSupplierNit()!=0}">
-                                <input  type="number" name="txtIdp" value="${proveedorEdit.getSupplierNit()}" readonly="" class="form-control">
+                            <c:if test="${clienteEdit.getCustomerId()!=0}">
+                                <input  type="number" name="txtIdc" value="${clienteEdit.getCustomerId()}" readonly="" class="form-control">
                             </c:if>
-                            <c:if test="${proveedorEdit.getSupplierNit()==0}">
-                                <input  type="number" name="txtIdp" class="form-control" required="">
+                            <c:if test="${clienteEdit.getCustomerId()==0}">
+                                <input  type="number" name="txtIdc" class="form-control" required="">
                                 <div class="valid-feedback">Campo OK</div>
                                 <div class="invalid-feedback">Complete los datos</div>
                             </c:if>
 
                         </div>
                         <div class="form-group" >
-                            <label>Nombre Proveedor</label>
-                            <input  type="text" name="txtNombrep" value="${proveedorEdit.getSupplierName()}" class="form-control" required="">
+                            <label>Nombre Cliente</label>
+                            <input  type="text" name="txtNombrec" value="${clienteEdit.getCustomerNameFull()}" class="form-control" required="">
                             <div class="valid-feedback">Campo OK</div>
                             <div class="invalid-feedback">Complete los datos</div>
                         </div>
                         <div class="form-group" >
-                            <label>Direccion Proveedor</label>
-                            <input  type="text" name="txtDireccionp" value="${proveedorEdit.getSupplierAddress()}" class="form-control" required="">
+                            <label>Direccion Cliente</label>
+                            <input  type="text" name="txtDireccionc" value="${clienteEdit.getCustomerAddress()}" class="form-control" required="">
                             <div class="valid-feedback">Campo OK</div>
                             <div class="invalid-feedback">Complete los datos</div>
                         </div>
                         <div class="form-group" >
                             <label>Telefono Proveedor</label>
-                            <input  type="text" name="txtTelefonop" value="${proveedorEdit.getSupplierPhone()}" class="form-control" required="">
+                            <input  type="text" name="txtTelefonoc" value="${clienteEdit.getCustomerPhone()}" class="form-control" required="">
                             <div class="valid-feedback">Campo OK</div>
                             <div class="invalid-feedback">Complete los datos</div>
                         </div>
                         <div class="form-group" >
-                            <label>Ciudad Proveedor</label>
-                            <input  type="text" name="txtCiudadp" value="${proveedorEdit.getSupplierCity()}" class="form-control" required="">
+                            <label>Correo Cliente</label>
+                            <input  type="text" name="txtEmailc" value="${clienteEdit.getCustomerEmail()}" class="form-control" required="">
                             <div class="valid-feedback">Campo OK</div>
                             <div class="invalid-feedback">Complete los datos</div>
                         </div><br>
                         <input type="submit" name="accion" value="Agregar" class="btn btn-info" >
                         <input type="submit" name="accion" value="Actualizar" class="btn btn-success" >
                     </form>
-                    <form class="needs-validation" action="Controlador?menu=Proveedores" method="POST" novalidate>
+                    <form class="needs-validation" action="Controlador?menu=Clientes" method="POST" novalidate>
                         <br>
-                        <label>Buscar por Nit Proveedor</label>
+                        <label>Buscar por cedula cliente</label>
 
                         <!--PROCESO JAVA -->
-                        <c:if test="${proveedorEdit.getSupplierNit()!=0}">
-                            <input  type="text" name="txtIdp" value="${proveedorEdit.getSupplierNit()}" readonly="" class="form-control">
+                        <c:if test="${clienteEdit.getCustomerId()!=0}">
+                            <input  type="text" name="txtIdc" value="${clienteEdit.getCustomerId()}" readonly="" class="form-control">
                         </c:if>
-                        <c:if test="${proveedorEdit.getSupplierNit()==0}">
-                            <input  type="text" name="txtIdp" class="form-control" required="">
+                        <c:if test="${clienteEdit.getCustomerId()==0}">
+                            <input  type="text" name="txtIdc" class="form-control" required="">
                             <div class="valid-feedback">Campo OK</div>
                             <div class="invalid-feedback">Complete los datos</div>
                         </c:if>
@@ -97,28 +98,28 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>NIT</th>
+                            <th>CEDULA</th>
                             <th>NOMBRE</th>
                             <th>DIRECCION</th>
                             <th>TELEFONO</th>
-                            <th>CIUDAD</th>
+                            <th>CORREO</th>
                             <th>ACCIONES</th>
                     </thead>
                     <tbody>
-                        <c:forEach var="e" items="${proveedor}">
+                        <c:forEach var="e" items="${cliente}">
                             <tr>
-                                <td>${e.getSupplierNit()}</td>
-                                <td>${e.getSupplierName()}</td>
-                                <td>${e.getSupplierAddress()}</td>
-                                <td>${e.getSupplierPhone()}</td>
-                                <td>${e.getSupplierCity()}</td>
+                                <td>${e.getCustomerId()}</td>
+                                <td>${e.getCustomerNameFull()}</td>
+                                <td>${e.getCustomerAddress()}</td>
+                                <td>${e.getCustomerPhone()}</td>
+                                <td>${e.getCustomerEmail()}</td>
                                 <td>
-                                    <a href="Controlador?menu=Proveedores&accion=Editar&txtIdp=${e.getSupplierNit()}" 
+                                    <a href="Controlador?menu=Clientes&accion=Editar&txtIdc=${e.getCustomerId()}" 
                                        class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                    <!--<a href="Controlador?menu=Proveedores&accion=Eliminar&id=${e.getSupplierNit()}" 
+                                    <!--<a href="Controlador?menu=Clientes&accion=Eliminar&id=${e.getCustomerId()}" 
                                        class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></a>-->
                                     <!-- Modal -->
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever=${e.getSupplierNit()}>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever=${e.getCustomerId()}>
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
                                     <!-- Modal -->
@@ -166,7 +167,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body">
-                            <p>El Nit buscado no existe</p>
+                            <p>La Cedula buscada no existe</p>
                         </div>
                     </div>
                 </div>
@@ -219,11 +220,11 @@
                 modal.find('.modal-title').text('Esta seguro que desea eliminar el id: ' + recipient)
                 $('#btneliminar').click(function () {
                     alert('Se ha eliminado el proveedor con id: ' + recipient);
-                    window.location.href = "Controlador?menu=Proveedores&accion=Eliminar&txtIdp=" + recipient;
+                    window.location.href = "Controlador?menu=Clientes&accion=Eliminar&txtIdc=" + recipient;
                 });
             });
         </script>
-        <c:if test="${nit==0}">
+        <c:if test="${cedula_cliente==0}">
             <script>
                 $('#exampleModal1').modal('show');
             </script>       
