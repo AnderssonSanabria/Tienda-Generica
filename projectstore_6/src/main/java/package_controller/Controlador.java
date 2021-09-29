@@ -13,12 +13,14 @@ import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import package_dao.dao_customer;
 // IMPORTACION DE MODELOS
 import package_modelo.modelo_user;
 import package_modelo.modelo_supplier;
 // IMPORTACION DE DAO PROCESOS
 import package_dao.dao_user;
 import package_dao.dao_supplier;
+import package_modelo.modelo_customer;
 
 // CUERPO DE PROCESOS
 public class Controlador extends HttpServlet {
@@ -26,10 +28,13 @@ public class Controlador extends HttpServlet {
     // IMPORTACION DE MODELOS
     modelo_user usuario = new modelo_user();
     modelo_supplier proveedor = new modelo_supplier();
+    modelo_customer cliente = new modelo_customer();
+    
 
     // IMPORTACION DE DAO
     dao_user usuarioDao = new dao_user();
     dao_supplier proveedorDao = new dao_supplier();
+    dao_customer clienteDao = new dao_customer();
 
     // CRUD DE USUARIO
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -212,6 +217,93 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("jsp/proveedor.jsp").forward(request, response);
         } // else if (menu.equals("Proveedor")) {}
+        
+        // REALIZA ACCION DE ENTRADA DE VISTA clientes.jsp
+        else if (menu.equals("Clientes")) {
+            int cedula_cliente ;
+            String nombre_cliente ;
+            String direccion_cliente;
+            int telefono_cliente;
+            String email_cliente;
+            
+            switch (accion) {
+
+                /* **** DE LOS ELEMENTOS A CONTINUACION
+                1. ESTA PARTE DE CODIGO ESTA TRABAJANDO CON EL MODELO DE USUARIO, SE DEBERA CAMBIAR POR PROVEEDOR
+                2. MODIFICAR LAS PUESTAS DE ENTRADA Y SALIDA (SET Y GET DE MODELO)
+                3. HAY PARTES DEL CODIGO DONDE SE IMPORTA EL MODELO USUARIO, SE DEBERA CAMBIAR
+                4. HAY MODIFICACIONES ADICIONALES QUE EN ANTERIORES VERSIONES NO TENIA, SE DEBERAN AGREGAR, EJEMPLO case "Listar"
+                 */
+                case "Listar":
+                    request.setAttribute("cliente", clienteDao.getCliente());
+                    request.setAttribute("clienteEdit", new modelo_customer());
+                    break;
+
+                case "Buscar":
+                    modelo_customer cli = new modelo_customer();
+                    cedula_cliente = Integer.valueOf(request.getParameter("txtIdc"));
+                    cli = clienteDao.getClienteId(cedula_cliente);
+                    request.setAttribute("clienteEdit", cli);
+                    request.setAttribute("cedula_cliente", cli.getCustomerId());
+                    break;
+
+                case "Agregar":
+
+                    // IMORTANTE, ESTE CAMBIO CAMBIA DRASTICAMENTE, SE DEBERA GUARDAR EL ORDEN SEGUN LA TABLA DE BASE DE DATOS
+                    // REVISAR LA DEFINICION DE TIPOS DE VARIABLES
+                    // TENER EN CUENTA LOS NOMBRES DE LAS ENTRADAS SI ES QUE TAMBIEN SE CAMIA LOS BONOTES EN EL HTML O VISTA PROVEEDORES
+                    cedula_cliente = Integer.parseInt(request.getParameter("txtIdc"));
+                    nombre_cliente = request.getParameter("txtNombrec");
+                    direccion_cliente = request.getParameter("txtDireccionc");
+                    telefono_cliente = Integer.parseInt(request.getParameter("txtTelefonoc"));
+                    email_cliente = request.getParameter("txtEmailc");
+                    cliente.setCustomerId(cedula_cliente);
+                    cliente.setCustomerNameFull(nombre_cliente);
+                    cliente.setCustomerAddress(direccion_cliente);
+                    cliente.setCustomerPhone(telefono_cliente);
+                    cliente.setCustomerEmail(email_cliente);
+                    boolean creado = clienteDao.agregarCliente(cliente);
+                    if (creado) {
+                        mensaje = "Cliente Creado";
+                    } else {
+                        mensaje = "Faltan Datos del Cliente";
+                    }
+                    request.setAttribute("mensaje", mensaje);
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+                    break;
+
+                case "Editar":
+                    cedula_cliente = Integer.valueOf(request.getParameter("txtIdc"));
+                    request.setAttribute("clienteEdit", clienteDao.getClienteId(cedula_cliente));
+                    break;
+
+
+                case "Actualizar":
+                    cedula_cliente = Integer.parseInt(request.getParameter("txtIdc"));
+                    nombre_cliente = request.getParameter("txtNombrec");
+                    direccion_cliente = request.getParameter("txtDireccionc");
+                    telefono_cliente = Integer.parseInt(request.getParameter("txtTelefonoc"));
+                    email_cliente = request.getParameter("txtCiudadc");
+                    cliente.setCustomerId(cedula_cliente);
+                    cliente.setCustomerNameFull(nombre_cliente);
+                    cliente.setCustomerAddress(direccion_cliente);
+                    cliente.setCustomerPhone(telefono_cliente);
+                    cliente.setCustomerEmail(email_cliente);
+                    clienteDao.actualizarCliente(cliente);
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+                    break;
+
+                case "Eliminar":
+                    cedula_cliente= Integer.valueOf(request.getParameter("txtIdc"));
+                    clienteDao.eliminarCliente(cedula_cliente);
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+                    break;
+
+                default:
+                    throw new AssertionError();
+            }
+            request.getRequestDispatcher("jsp/cliente.jsp").forward(request, response);
+        } // else if (menu.equals("clientes")) {}
 
     } // protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
