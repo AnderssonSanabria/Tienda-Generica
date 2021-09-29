@@ -147,8 +147,12 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Buscar":
+                    modelo_supplier pro = new modelo_supplier();
+
                     nit = Integer.valueOf(request.getParameter("txtIdp"));
-                    request.setAttribute("proveedorEdit", proveedorDao.getProveedorId(nit));
+                    pro = proveedorDao.getProveedorId(nit);
+                    request.setAttribute("proveedorEdit", pro);
+                    request.setAttribute("nit", pro.getSupplierNit());
                     break;
 
                 case "Agregar":

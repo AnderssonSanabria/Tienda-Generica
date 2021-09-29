@@ -79,10 +79,10 @@
 
                         <!--PROCESO JAVA -->
                         <c:if test="${proveedorEdit.getSupplierNit()!=0}">
-                            <input  type="number" name="txtIdp" value="${proveedorEdit.getSupplierNit()}" readonly="" class="form-control">
+                            <input  type="text" name="txtIdp" value="${proveedorEdit.getSupplierNit()}" readonly="" class="form-control">
                         </c:if>
                         <c:if test="${proveedorEdit.getSupplierNit()==0}">
-                            <input  type="number" name="txtIdp" class="form-control" required="">
+                            <input  type="text" name="txtIdp" class="form-control" required="">
                             <div class="valid-feedback">Campo OK</div>
                             <div class="invalid-feedback">Complete los datos</div>
                         </c:if>
@@ -153,7 +153,25 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div> 
+        
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Alerta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <p>El Nit buscado no existe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
         <script>
@@ -205,6 +223,11 @@
                 });
             });
         </script>
+        <c:if test="${nit==0}">
+            <script>
+                $('#exampleModal1').modal('show');
+            </script>       
+        </c:if>
 
     </body>
 </html>
