@@ -131,7 +131,7 @@ public class dao_customer {
     public boolean actualizarCliente (modelo_customer cliente) {
         boolean encontrado = false;
         boolean actualizar = false;
-        String sql = "UPDATE proveedores SET nombre_cliente = '" + cliente.getCustomerNameFull()
+        String sql = "UPDATE clientes SET nombre_cliente = '" + cliente.getCustomerNameFull()
                 + "', direccion_cliente = '" + cliente.getCustomerAddress()+ "', telefono_cliente='"
                 + cliente.getCustomerPhone()+ "'" + ", email_cliente = '" + cliente.getCustomerEmail()+ "'"
                 + " WHERE cedula_cliente = " + cliente.getCustomerId();

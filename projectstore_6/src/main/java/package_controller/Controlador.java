@@ -283,7 +283,7 @@ public class Controlador extends HttpServlet {
                     nombre_cliente = request.getParameter("txtNombrec");
                     direccion_cliente = request.getParameter("txtDireccionc");
                     telefono_cliente = Integer.parseInt(request.getParameter("txtTelefonoc"));
-                    email_cliente = request.getParameter("txtCiudadc");
+                    email_cliente = request.getParameter("txtEmailc");
                     cliente.setCustomerId(cedula_cliente);
                     cliente.setCustomerNameFull(nombre_cliente);
                     cliente.setCustomerAddress(direccion_cliente);
