@@ -69,3 +69,6 @@ CREATE TABLE `detalle_ventas` (
   CONSTRAINT `detalle_ventas_ibfk_2` FOREIGN KEY (`codigo_venta`) REFERENCES `ventas` (`codigo_venta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
+insert into bd_tienda.usuarios values(2,"admin",123,"a@a.c","Administrador")
+insert into bd_tienda.proveedores values(1,"licor","calle falsa 123",55555,"Dubai")
