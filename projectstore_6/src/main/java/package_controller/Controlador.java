@@ -13,14 +13,14 @@ import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import package_dao.dao_customer;
 // IMPORTACION DE MODELOS
 import package_modelo.modelo_user;
 import package_modelo.modelo_supplier;
-import package_modelo.modelo_customer;
 // IMPORTACION DE DAO PROCESOS
 import package_dao.dao_user;
 import package_dao.dao_supplier;
-import package_dao.dao_customer;
+import package_modelo.modelo_customer;
 
 // CUERPO DE PROCESOS
 public class Controlador extends HttpServlet {
@@ -28,12 +28,13 @@ public class Controlador extends HttpServlet {
     // IMPORTACION DE MODELOS
     modelo_user usuario = new modelo_user();
     modelo_supplier proveedor = new modelo_supplier();
-    modelo_customer MCustomer = new modelo_customer();
+    modelo_customer cliente = new modelo_customer();
+    
 
     // IMPORTACION DE DAO
     dao_user usuarioDao = new dao_user();
     dao_supplier proveedorDao = new dao_supplier();
-    dao_customer customerDao = new dao_customer();
+    dao_customer clienteDao = new dao_customer();
 
     // CRUD DE USUARIO
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -122,14 +123,21 @@ public class Controlador extends HttpServlet {
                     usuarioDao.eliminarUsuario(cdUsuarioa2);
                     request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
                     break;
-                    
                 default:
                     throw new AssertionError();
             }
             request.getRequestDispatcher("jsp/usuarios.jsp").forward(request, response);
         } // if (menu.equals("Usuarios")) {}
+        
+        
         // REALIZA ACCION DE ENTRADA DE VISTA proveedor.jsp
-        else if (menu.equals("Proveedor")) {
+        else if (menu.equals("Proveedores")) {
+            int nit ;
+            String nombre_proveedor ;
+            String direccion_proveedor;
+            int telefono_proveedor;
+            String ciudad_proveedor;
+            
             switch (accion) {
 
                 /* **** DE LOS ELEMENTOS A CONTINUACION
@@ -144,12 +152,12 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Buscar":
-                    int idp = Integer.valueOf(request.getParameter("txtId"));
-                    modelo_supplier bpro = new modelo_supplier();
-                    String[] categoriasb = {"Administrador", "Cliente"};
-                    bpro = proveedorDao.getProveedorId(idp);
-                    request.setAttribute("proveedorEdit", bpro);
-                    request.setAttribute("categorias", categoriasb);
+                    modelo_supplier pro = new modelo_supplier();
+
+                    nit = Integer.valueOf(request.getParameter("txtIdp"));
+                    pro = proveedorDao.getProveedorId(nit);
+                    request.setAttribute("proveedorEdit", pro);
+                    request.setAttribute("nit", pro.getSupplierNit());
                     break;
 
                 case "Agregar":
@@ -157,54 +165,51 @@ public class Controlador extends HttpServlet {
                     // IMORTANTE, ESTE CAMBIO CAMBIA DRASTICAMENTE, SE DEBERA GUARDAR EL ORDEN SEGUN LA TABLA DE BASE DE DATOS
                     // REVISAR LA DEFINICION DE TIPOS DE VARIABLES
                     // TENER EN CUENTA LOS NOMBRES DE LAS ENTRADAS SI ES QUE TAMBIEN SE CAMIA LOS BONOTES EN EL HTML O VISTA PROVEEDORES
-                    int idUsuario = Integer.parseInt(request.getParameter("txtId"));
-                    String clave = request.getParameter("txtClave");
-                    String nombreUsuario = request.getParameter("txtNombre");
-                    String correo = request.getParameter("txtCorreo");
-                    String tipoUsuario = request.getParameter("txtTipo");
-                    usuario.setCedulaUsuario(idUsuario);
-                    usuario.setClave(clave);
-                    usuario.setCorreo(correo);
-                    usuario.setNombreUsuario(nombreUsuario);
-                    usuario.setTipoUsuario(tipoUsuario);
-                    boolean creado = usuarioDao.agregarUsuario(usuario);
+                    nit = Integer.parseInt(request.getParameter("txtIdp"));
+                    nombre_proveedor = request.getParameter("txtNombrep");
+                    direccion_proveedor = request.getParameter("txtDireccionp");
+                    telefono_proveedor = Integer.parseInt(request.getParameter("txtTelefonop"));
+                    ciudad_proveedor = request.getParameter("txtCiudadp");
+                    proveedor.setSupplierNit(nit);
+                    proveedor.setSupplierName(nombre_proveedor);
+                    proveedor.setSupplierAddress(direccion_proveedor);
+                    proveedor.setSupplierPhone(telefono_proveedor);
+                    proveedor.setSupplierCity(ciudad_proveedor);
+                    boolean creado = proveedorDao.agregarProveedor(proveedor);
                     if (creado) {
                         mensaje = "Usuario Creado";
                     } else {
-                        mensaje = "Faltan Datos del Usuario";
+                        mensaje = "Faltan Datos del Proveedor";
                     }
                     request.setAttribute("mensaje", mensaje);
-                    request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
+                    request.getRequestDispatcher("Controlador?menu=Proveedores&accion=Listar").forward(request, response);
                     break;
 
                 case "Editar":
-                    int ideu = Integer.valueOf(request.getParameter("id"));
-                    modelo_user usu = new modelo_user(); // SE DEBE CAMBIAR LA IMPORTACION DEL MODEL POR EL DE modelu_supplier
-                    String[] categorias = {"Administrador", "Cliente"};
-                    usu = usuarioDao.getUsuarioCedula(ideu); // SE DEBE MODIFICAR ESTE ELEMENTO POR EL MODEL DE PROVEEDOR
-                    request.setAttribute("usuarioEdit", usu);
-                    request.setAttribute("categorias", categorias);
+                    nit = Integer.valueOf(request.getParameter("txtIdp"));
+                    request.setAttribute("proveedorEdit", proveedorDao.getProveedorId(nit));
                     break;
 
+
                 case "Actualizar":
-                    int idUsuarioa = Integer.parseInt(request.getParameter("txtId"));
-                    String clavea = request.getParameter("txtClave");
-                    String nombreUsuarioa = request.getParameter("txtNombre");
-                    String correoa = request.getParameter("txtCorreo");
-                    String tipoUsuarioa = request.getParameter("txtTipo");
-                    usuario.setCedulaUsuario(idUsuarioa);
-                    usuario.setClave(clavea);
-                    usuario.setCorreo(correoa);
-                    usuario.setNombreUsuario(nombreUsuarioa);
-                    usuario.setTipoUsuario(tipoUsuarioa);
-                    usuarioDao.actualizarUsuario(usuario);
-                    request.getRequestDispatcher("Controlador?menu=Proveedor&accion=Listar").forward(request, response);
+                    nit = Integer.parseInt(request.getParameter("txtIdp"));
+                    nombre_proveedor = request.getParameter("txtNombrep");
+                    direccion_proveedor = request.getParameter("txtDireccionp");
+                    telefono_proveedor = Integer.parseInt(request.getParameter("txtTelefonop"));
+                    ciudad_proveedor = request.getParameter("txtCiudadp");
+                    proveedor.setSupplierNit(nit);
+                    proveedor.setSupplierName(nombre_proveedor);
+                    proveedor.setSupplierAddress(direccion_proveedor);
+                    proveedor.setSupplierPhone(telefono_proveedor);
+                    proveedor.setSupplierCity(ciudad_proveedor);
+                    proveedorDao.actualizarProveedor(proveedor);
+                    request.getRequestDispatcher("Controlador?menu=Proveedores&accion=Listar").forward(request, response);
                     break;
 
                 case "Eliminar":
-                    int idUsuarioe = Integer.valueOf(request.getParameter("id"));
-                    usuarioDao.eliminarUsuario(idUsuarioe);
-                    request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
+                    nit= Integer.valueOf(request.getParameter("txtIdp"));
+                    proveedorDao.eliminarProveedor(nit);
+                    request.getRequestDispatcher("Controlador?menu=Proveedores&accion=Listar").forward(request, response);
                     break;
 
                 default:
@@ -213,17 +218,93 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("jsp/proveedor.jsp").forward(request, response);
         } // else if (menu.equals("Proveedor")) {}
         
-        
-        // REALIZA ACCION DE ENTRADA DE VISTA ViewCustomer.jsp
-        else if (menu.equals("Customer")) {
+        // REALIZA ACCION DE ENTRADA DE VISTA clientes.jsp
+        else if (menu.equals("Clientes")) {
+            int cedula_cliente ;
+            String nombre_cliente ;
+            String direccion_cliente;
+            int telefono_cliente;
+            String email_cliente;
+            
             switch (accion) {
+
+                /* **** DE LOS ELEMENTOS A CONTINUACION
+                1. ESTA PARTE DE CODIGO ESTA TRABAJANDO CON EL MODELO DE USUARIO, SE DEBERA CAMBIAR POR PROVEEDOR
+                2. MODIFICAR LAS PUESTAS DE ENTRADA Y SALIDA (SET Y GET DE MODELO)
+                3. HAY PARTES DEL CODIGO DONDE SE IMPORTA EL MODELO USUARIO, SE DEBERA CAMBIAR
+                4. HAY MODIFICACIONES ADICIONALES QUE EN ANTERIORES VERSIONES NO TENIA, SE DEBERAN AGREGAR, EJEMPLO case "Listar"
+                 */
                 case "Listar":
-                    request.setAttribute("Mcostumer", customerDao.ProcAddCustomer());
-                    request.setAttribute("CustomerEdit", new modelo_customer());
+                    request.setAttribute("cliente", clienteDao.getCliente());
+                    request.setAttribute("clienteEdit", new modelo_customer());
                     break;
+
+                case "Buscar":
+                    modelo_customer cli = new modelo_customer();
+                    cedula_cliente = Integer.valueOf(request.getParameter("txtIdc"));
+                    cli = clienteDao.getClienteId(cedula_cliente);
+                    request.setAttribute("clienteEdit", cli);
+                    request.setAttribute("cedula_cliente", cli.getCustomerId());
+                    break;
+
+                case "Agregar":
+
+                    // IMORTANTE, ESTE CAMBIO CAMBIA DRASTICAMENTE, SE DEBERA GUARDAR EL ORDEN SEGUN LA TABLA DE BASE DE DATOS
+                    // REVISAR LA DEFINICION DE TIPOS DE VARIABLES
+                    // TENER EN CUENTA LOS NOMBRES DE LAS ENTRADAS SI ES QUE TAMBIEN SE CAMIA LOS BONOTES EN EL HTML O VISTA PROVEEDORES
+                    cedula_cliente = Integer.parseInt(request.getParameter("txtIdc"));
+                    nombre_cliente = request.getParameter("txtNombrec");
+                    direccion_cliente = request.getParameter("txtDireccionc");
+                    telefono_cliente = Integer.parseInt(request.getParameter("txtTelefonoc"));
+                    email_cliente = request.getParameter("txtEmailc");
+                    cliente.setCustomerId(cedula_cliente);
+                    cliente.setCustomerNameFull(nombre_cliente);
+                    cliente.setCustomerAddress(direccion_cliente);
+                    cliente.setCustomerPhone(telefono_cliente);
+                    cliente.setCustomerEmail(email_cliente);
+                    boolean creado = clienteDao.agregarCliente(cliente);
+                    if (creado) {
+                        mensaje = "Cliente Creado";
+                    } else {
+                        mensaje = "Faltan Datos del Cliente";
+                    }
+                    request.setAttribute("mensaje", mensaje);
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+                    break;
+
+                case "Editar":
+                    cedula_cliente = Integer.valueOf(request.getParameter("txtIdc"));
+                    request.setAttribute("clienteEdit", clienteDao.getClienteId(cedula_cliente));
+                    break;
+
+
+                case "Actualizar":
+                    cedula_cliente = Integer.parseInt(request.getParameter("txtIdc"));
+                    nombre_cliente = request.getParameter("txtNombrec");
+                    direccion_cliente = request.getParameter("txtDireccionc");
+                    telefono_cliente = Integer.parseInt(request.getParameter("txtTelefonoc"));
+                    email_cliente = request.getParameter("txtEmailc");
+                    cliente.setCustomerId(cedula_cliente);
+                    cliente.setCustomerNameFull(nombre_cliente);
+                    cliente.setCustomerAddress(direccion_cliente);
+                    cliente.setCustomerPhone(telefono_cliente);
+                    cliente.setCustomerEmail(email_cliente);
+                    clienteDao.actualizarCliente(cliente);
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+                    break;
+
+                case "Eliminar":
+                    cedula_cliente= Integer.valueOf(request.getParameter("txtIdc"));
+                    clienteDao.eliminarCliente(cedula_cliente);
+                    request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
+                    break;
+
+                default:
+                    throw new AssertionError();
             }
-            request.getRequestDispatcher("jsp/ViewCustomer.jsp").forward(request, response);
-        }
+            request.getRequestDispatcher("jsp/cliente.jsp").forward(request, response);
+        } // else if (menu.equals("clientes")) {}
+
     } // protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

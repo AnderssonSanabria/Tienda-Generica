@@ -28,7 +28,7 @@ public class dao_user {
         ResultSet rs;
         try {
             con = cn.Conexion();
-            String sql = "select tipoUsuario, correo from usuario where nombreUsuario=? and clave=?";
+            String sql = "select rol, email_usuario from usuarios where nombre_usuario=? and password=?";
             ps = con.prepareStatement(sql);
             ps.setString(1, usu.getNombreUsuario());
             ps.setString(2, usu.getClave());
@@ -37,8 +37,8 @@ public class dao_user {
             if (rs.next()) {
                 estado = "true";
             }
-            usu.setTipoUsuario(rs.getString("tipoUsuario"));
-            usu.setCorreo(rs.getString("correo"));
+            usu.setTipoUsuario(rs.getString("rol"));
+            usu.setCorreo(rs.getString("email_usuario"));
             System.out.println("\n\n>> >> >> DAO_USUARIO / LOGIN / USUARIO CORRECTO\n");
         }
         catch (Exception e) {
@@ -50,7 +50,7 @@ public class dao_user {
 
     // AGREGAR USUARIO
     public List<modelo_user> getUsuarios() {
-        String sql = "SELECT * FROM usuario";
+        String sql = "SELECT * FROM usuarios";
         List<modelo_user> usuarios = new ArrayList<>();
         try {
             con = cn.Conexion();
@@ -79,12 +79,12 @@ public class dao_user {
     public boolean agregarUsuario(modelo_user usuario) {
         boolean registrar = false; // Permite identificar si ya existe el usuario
         boolean encontrado = false; // Encuentra un usuario con el correo Institucional
-        String buscar = "SELECT * FROM usuario where cedulaUsuario = " // Instrucción sql
+        String buscar = "SELECT * FROM usuarios where cedula_usuario = " // Instrucción sql
                 + usuario.getCedulaUsuario(); // Para buscar un registro con el mismo id
         encontrado = buscar(buscar); // Ejecutamos el método con la consulta
         if (!encontrado) {
             // La instrucción para insertar el registro
-            String sql = "INSERT INTO usuario values (" + usuario.getCedulaUsuario() + ",'" + usuario.getNombreUsuario()
+            String sql = "INSERT INTO usuarios values (" + usuario.getCedulaUsuario() + ",'" + usuario.getNombreUsuario()
                     + "','" + usuario.getClave() + "','" + usuario.getCorreo() + "','"
                     + usuario.getTipoUsuario() + "')";
             try {
@@ -128,7 +128,7 @@ public class dao_user {
 
     // BUSCAR USUARIO POR CEDULA
     public modelo_user getUsuarioCedula(int CedulaB) {
-        String sql = "SELECT * FROM usuario WHERE cedulaUsuario=" + CedulaB;
+        String sql = "SELECT * FROM usuarios WHERE cedula_usuario=" + CedulaB;
         modelo_user usu = new modelo_user();
         try {
             con = cn.Conexion();
@@ -156,10 +156,10 @@ public class dao_user {
     public boolean actualizarUsuario(modelo_user usuario) {
         boolean encontrado = false;
         boolean actualizar = false;
-        String sql = "UPDATE usuario SET nombreUsuario = '" + usuario.getNombreUsuario()
-                + "', correo = '" + usuario.getCorreo() + "', tipoUsuario='"
+        String sql = "UPDATE usuarios SET nombre_usuario = '" + usuario.getNombreUsuario()
+                + "', email_usuario = '" + usuario.getCorreo() + "', rol='"
                 + usuario.getTipoUsuario() + "'" + ", clave = '" + usuario.getClave() + "'"
-                + " WHERE cedulaUsuario = " + usuario.getCedulaUsuario();
+                + " WHERE cedula_usuario = " + usuario.getCedulaUsuario();
         System.out.println("\n\n>> >> >> dao_user / ACTUALIZACION DE DATOS" + sql);
         try {
             con = cn.Conexion();
@@ -178,9 +178,9 @@ public class dao_user {
     public boolean eliminarUsuario(int id) {
         boolean encontrado = false;
         boolean eliminar = false;
-        String buscar = "SELECT * FROM usuario WHERE cedulaUsuario=" + id;
+        String buscar = "SELECT * FROM usuarios WHERE cedula_usuario=" + id;
         encontrado = buscar(buscar);
-        String sql = "DELETE FROM usuario WHERE cedulaUsuario = " + id;
+        String sql = "DELETE FROM usuarios WHERE cedula_usuario = " + id;
         if (encontrado) {
             try {
                 con = cn.Conexion();
