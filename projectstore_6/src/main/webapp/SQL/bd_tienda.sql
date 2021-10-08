@@ -1,53 +1,82 @@
--- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
---
--- Host: 127.0.0.1    Database: bd_tienda
--- ------------------------------------------------------
--- Server version	8.0.26
+# LIMITE DE CODIGO 	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+# NOTA:
+# 1. IMPORTANTE, SELECCIONEN TODO EL CODIGO HASTA EL LIMITE DEFINIDO Y CORRER EL CODIGO
+# 2. EN LA PARTE DE INFERIOR DEJE UNOS CODIGOS PARA REALIZAR PEQUEÑAS ACCIONES
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `clientes`
---
+# ---------------------------------------------------------------------------
+# CREACION DE BASE DE DATOS
+CREATE DATABASE `bd_tienda` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-DROP TABLE IF EXISTS `clientes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+# ---------------------------------------------------------------------------
+# IMPLEMENTACION DE DATABASE
+use bd_tienda;
+
+# ---------------------------------------------------------------------------
+# CREACION DE TABLA usuarios
+CREATE TABLE `usuarios` (
+  `cedula_usuario` bigint NOT NULL,
+  `nombre_usuario` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email_usuario` varchar(255) NOT NULL,
+  `rol` varchar(35) DEFAULT NULL,
+  PRIMARY KEY (`cedula_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+# ---------------------------------------------------------------------------
+# CREACION DE TABLA clientes
 CREATE TABLE `clientes` (
   `cedula_cliente` bigint NOT NULL,
-  `direccion_cliente` varchar(255) DEFAULT NULL,
-  `email_cliente` varchar(255) NOT NULL,
   `nombre_cliente` varchar(255) NOT NULL,
+  `direccion_cliente` varchar(255) DEFAULT NULL,
   `telefono_cliente` varchar(255) DEFAULT NULL,
+  `email_cliente` varchar(255) NOT NULL,
   PRIMARY KEY (`cedula_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `clientes`
---
+# ---------------------------------------------------------------------------
+# CREACION DE TABLA proveedores
+CREATE TABLE `proveedores` (
+  `nit_proveedor` bigint NOT NULL,
+  `nombre_proveedor` varchar(255) DEFAULT NULL,
+  `direccion_proveedor` varchar(255) DEFAULT NULL,
+  `telefono_proveedor` varchar(255) DEFAULT NULL,
+  `ciudad_proveedor` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`nit_proveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
-UNLOCK TABLES;
+# ---------------------------------------------------------------------------
+# CREACION DE TABLA productos
+CREATE TABLE `productos` (
+  `codigo_producto` bigint NOT NULL,
+  `iva_compra` double DEFAULT NULL,
+  `nit_proveedor` bigint NOT NULL,
+  `nombre_producto` varchar(255) DEFAULT NULL,
+  `precio_compra` double DEFAULT NULL,
+  `precio_venta` double DEFAULT NULL,
+  PRIMARY KEY (`codigo_producto`),
+  KEY `nit_proveedor` (`nit_proveedor`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`nit_proveedor`) REFERENCES `proveedores` (`nit_proveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Table structure for table `detalle_ventas`
---
+# ---------------------------------------------------------------------------
+# CREACION DE TABLA ventas
+CREATE TABLE `ventas` (
+  `codigo_venta` bigint NOT NULL,
+  `cedula_cliente` bigint NOT NULL,
+  `cedula_usuario` bigint NOT NULL,
+  `iva_venta` double DEFAULT NULL,
+  `total_venta` double DEFAULT NULL,
+  `valor_venta` double DEFAULT NULL,
+  PRIMARY KEY (`codigo_venta`),
+  KEY `cedula_cliente` (`cedula_cliente`),
+  KEY `cedula_usuario` (`cedula_usuario`),
+  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cedula_cliente`) REFERENCES `clientes` (`cedula_cliente`),
+  CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuarios` (`cedula_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DROP TABLE IF EXISTS `detalle_ventas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+# ---------------------------------------------------------------------------
+# CREACION DE TABLA detalle_ventas
 CREATE TABLE `detalle_ventas` (
   `codigo_detalle_venta` bigint NOT NULL,
   `cantidad_producto` int DEFAULT NULL,
@@ -62,137 +91,83 @@ CREATE TABLE `detalle_ventas` (
   CONSTRAINT `detalle_ventas_ibfk_1` FOREIGN KEY (`codigo_producto`) REFERENCES `productos` (`codigo_producto`),
   CONSTRAINT `detalle_ventas_ibfk_2` FOREIGN KEY (`codigo_venta`) REFERENCES `ventas` (`codigo_venta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `detalle_ventas`
---
+# ---------------------------------------------------------------------------
+# INSERCION DE DATOS A TABLA usuarios
+insert into bd_tienda.usuarios values(101,"admin",123,"admin@tienda.com","Administrador");
+insert into bd_tienda.usuarios values(102,"andersson",123,"adersson@tienda.com","Administrador");
+insert into bd_tienda.usuarios values(103,"fabian",123,"fabian@tienda.com","cliente");
+insert into bd_tienda.usuarios values(104,"johanna",123,"johanna@tienda.com","Administrador");
+insert into bd_tienda.usuarios values(105,"juan",123,"juan@tienda.com","cliente");
+insert into bd_tienda.usuarios values(106,"luis",123,"luis@tienda.com","Administrador");
 
-LOCK TABLES `detalle_ventas` WRITE;
-/*!40000 ALTER TABLE `detalle_ventas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_ventas` ENABLE KEYS */;
-UNLOCK TABLES;
+# ---------------------------------------------------------------------------
+# INSERCION DE DATOS A TABLA clientes
+insert into bd_tienda.clientes values(201,"cliente1","direccion # cliente1","320 11111","cliente1@personal.com");
+insert into bd_tienda.clientes values(202,"cliente2","direccion # cliente2","320 22222","cliente2@personal.com");
+insert into bd_tienda.clientes values(203,"cliente3","direccion # cliente3","320 33333","cliente3@personal.com");
+insert into bd_tienda.clientes values(204,"cliente4","direccion # cliente4","320 44444","cliente4@personal.com");
+insert into bd_tienda.clientes values(205,"cliente5","direccion # cliente5","320 55555","cliente5@personal.com");
 
---
--- Table structure for table `productos`
---
+# ---------------------------------------------------------------------------
+# INSERCION DE DATOS A TABLA proveedores
+insert into bd_tienda.proveedores values(301,"proveedor1","direccion # proveedor1","330 11111","proveedor1@empresa.com");
+insert into bd_tienda.proveedores values(302,"proveedor2","direccion # proveedor2","330 22222","proveedor2@empresa.com");
+insert into bd_tienda.proveedores values(303,"proveedor3","direccion # proveedor3","330 33333","proveedor3@empresa.com");
+insert into bd_tienda.proveedores values(304,"proveedor4","direccion # proveedor4","330 44444","proveedor4@empresa.com");
+insert into bd_tienda.proveedores values(305,"proveedor5","direccion #5 proveedor","330 55555","proveedor5@empresa.com");
 
-DROP TABLE IF EXISTS `productos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `productos` (
-  `codigo_producto` bigint NOT NULL,
-  `iva_compra` double DEFAULT NULL,
-  `nit_proveedor` bigint NOT NULL,
-  `nombre_producto` varchar(255) DEFAULT NULL,
-  `precio_compra` double DEFAULT NULL,
-  `precio_venta` double DEFAULT NULL,
-  PRIMARY KEY (`codigo_producto`),
-  KEY `nit_proveedor` (`nit_proveedor`),
-  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`nit_proveedor`) REFERENCES `proveedores` (`nit_proveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+# ---------------------------------------------------------------------------
+# INSERCION DE DATOS A TABLA productos
+insert into bd_tienda.productos values(401,0.19,301,"producto 401",10,15);
+insert into bd_tienda.productos values(402,0.19,302,"producto 402",20,27);
+insert into bd_tienda.productos values(403,0.09,301,"producto 403",13,16);
+insert into bd_tienda.productos values(404,0.06,303,"producto 404",25,31);
+insert into bd_tienda.productos values(405,0.09,304,"producto 405",18,27);
+insert into bd_tienda.productos values(406,0.19,305,"producto 406",33,38);
+insert into bd_tienda.productos values(407,0.19,303,"producto 407",7,11);
 
---
--- Dumping data for table `productos`
---
+# LIMITE DE CODIGO 	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-LOCK TABLES `productos` WRITE;
-/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `proveedores`
---
+# MENU DE USO 			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-DROP TABLE IF EXISTS `proveedores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `proveedores` (
-  `nit_proveedor` bigint NOT NULL,
-  `nombre_proveedor` varchar(255) DEFAULT NULL,
-  `direccion_proveedor` varchar(255) DEFAULT NULL,
-  `telefono_proveedor` varchar(255) DEFAULT NULL,
-  `ciudad_proveedor` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`nit_proveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+# IMPLEMENTACION DE DATABASE
+use bd_tienda;
 
---
--- Dumping data for table `proveedores`
---
+# VISUALIZACION DE TABLAS
+select * from bd_tienda.usuarios;
+select * from bd_tienda.clientes;
+select * from bd_tienda.proveedores;
+select * from bd_tienda.productos;
+select * from bd_tienda.detalle_ventas;
+select * from bd_tienda.ventas;
 
-LOCK TABLES `proveedores` WRITE;
-/*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
-/*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
-UNLOCK TABLES;
+# VISUALIZACION DE TABLAS CON RANGO DE DATOS
+# MUESTRA LOS DATOS EN UN RANGO DE FILAS DEFINIDO, EL PRIMER DATO UTILIZA LA UBICACION 1
+# database_ 		: INDICAR BASE DE DATOS
+# table_ 			: INDICAR TABLA DE BASE DE DATOS
+# limit N,N+1 		: RANGO DE SELECCION
+select * from database_.table_ limit 0,2;
 
---
--- Table structure for table `usuarios`
---
+# ELIMINACION DE TABLA
+# CONTIENE UNA VALIDACION DE EXISTENCIA, SI NO ENCUENTRA LA TABLA NO DETIENE LA EJECUCION
+# database_ 		: INDICAR BASE DE DATOS
+# table_ 			: INDICAR TABLA DE BASE DE DATOS
+drop table if exists database_.table_;
 
-DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuarios` (
-  `cedula_usuario` bigint NOT NULL,
-  `nombre_usuario` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email_usuario` varchar(255) NOT NULL,
-  `rol` varchar(35) DEFAULT NULL,
-  PRIMARY KEY (`cedula_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+# ELIMINAR FILA DE TABLA
+# database_ 		: INDICAR BASE DE DATOS
+# table_ 			: INDICAR TABLA DE BASE DE DATOS
+# columna_			: INDICA LA COLUMNA DE BUSQUEDA
+# data_				: VALOR DE BUSQUEDA PARA SU UBICACION Y ELIMINACION (TEXTO = "TEXTO" / NUMERO = 000)
+/* database_ INDICA LA BASE DE DATOS A UTILIZAR / table_ INDICA LA TABLA / columna_ INDICA LA COLUMNA A EN QUE BUSCAR / 00000 BUSCA EL VALOR Y UBICACION DE LA FILA Y LO ELIMINA */
+delete from database_.table_ where columna_ = "data_";
 
---
--- Dumping data for table `usuarios`
---
+# INSERTAR FILA A TABLA
+# database_ 		: INDICAR BASE DE DATOS
+# table_ 			: INDICAR TABLA DE BASE DE DATOS
+# N					: DATOS DE INGRESO DE LA FILA
+insert into database_.table_ values(1,2,3,4,5);
 
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'andersson','123','andersson1493@gmail.com','Administrador'),(2,'admin','123','a@a.c','Administrador');
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ventas`
---
-
-DROP TABLE IF EXISTS `ventas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ventas` (
-  `codigo_venta` bigint NOT NULL,
-  `cedula_cliente` bigint NOT NULL,
-  `cedula_usuario` bigint NOT NULL,
-  `iva_venta` double DEFAULT NULL,
-  `total_venta` double DEFAULT NULL,
-  `valor_venta` double DEFAULT NULL,
-  PRIMARY KEY (`codigo_venta`),
-  KEY `cedula_cliente` (`cedula_cliente`),
-  KEY `cedula_usuario` (`cedula_usuario`),
-  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cedula_cliente`) REFERENCES `clientes` (`cedula_cliente`),
-  CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuarios` (`cedula_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ventas`
---
-
-LOCK TABLES `ventas` WRITE;
-/*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-09-27 21:06:35
+# MENU DE USO 			>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
