@@ -29,7 +29,6 @@ public class Controlador extends HttpServlet {
     modelo_user usuario = new modelo_user();
     modelo_supplier proveedor = new modelo_supplier();
     modelo_customer cliente = new modelo_customer();
-    
 
     // IMPORTACION DE DAO
     dao_user usuarioDao = new dao_user();
@@ -128,24 +127,16 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("jsp/usuarios.jsp").forward(request, response);
         } // if (menu.equals("Usuarios")) {}
-        
-        
         // REALIZA ACCION DE ENTRADA DE VISTA proveedor.jsp
         else if (menu.equals("Proveedores")) {
-            int nit ;
-            String nombre_proveedor ;
+            int nit;
+            String nombre_proveedor;
             String direccion_proveedor;
             int telefono_proveedor;
             String ciudad_proveedor;
-            
+
             switch (accion) {
 
-                /* **** DE LOS ELEMENTOS A CONTINUACION
-                1. ESTA PARTE DE CODIGO ESTA TRABAJANDO CON EL MODELO DE USUARIO, SE DEBERA CAMBIAR POR PROVEEDOR
-                2. MODIFICAR LAS PUESTAS DE ENTRADA Y SALIDA (SET Y GET DE MODELO)
-                3. HAY PARTES DEL CODIGO DONDE SE IMPORTA EL MODELO USUARIO, SE DEBERA CAMBIAR
-                4. HAY MODIFICACIONES ADICIONALES QUE EN ANTERIORES VERSIONES NO TENIA, SE DEBERAN AGREGAR, EJEMPLO case "Listar"
-                 */
                 case "Listar":
                     request.setAttribute("proveedor", proveedorDao.getProveedor());
                     request.setAttribute("proveedorEdit", new modelo_supplier());
@@ -190,7 +181,6 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("proveedorEdit", proveedorDao.getProveedorId(nit));
                     break;
 
-
                 case "Actualizar":
                     nit = Integer.parseInt(request.getParameter("txtIdp"));
                     nombre_proveedor = request.getParameter("txtNombrep");
@@ -207,7 +197,7 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Eliminar":
-                    nit= Integer.valueOf(request.getParameter("txtIdp"));
+                    nit = Integer.valueOf(request.getParameter("txtIdp"));
                     proveedorDao.eliminarProveedor(nit);
                     request.getRequestDispatcher("Controlador?menu=Proveedores&accion=Listar").forward(request, response);
                     break;
@@ -218,22 +208,17 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("jsp/proveedor.jsp").forward(request, response);
         } // else if (menu.equals("Proveedor")) {}
         
+        
         // REALIZA ACCION DE ENTRADA DE VISTA clientes.jsp
         else if (menu.equals("Clientes")) {
-            int cedula_cliente ;
-            String nombre_cliente ;
+            int cedula_cliente;
+            String nombre_cliente;
             String direccion_cliente;
             int telefono_cliente;
             String email_cliente;
-            
+
             switch (accion) {
 
-                /* **** DE LOS ELEMENTOS A CONTINUACION
-                1. ESTA PARTE DE CODIGO ESTA TRABAJANDO CON EL MODELO DE USUARIO, SE DEBERA CAMBIAR POR PROVEEDOR
-                2. MODIFICAR LAS PUESTAS DE ENTRADA Y SALIDA (SET Y GET DE MODELO)
-                3. HAY PARTES DEL CODIGO DONDE SE IMPORTA EL MODELO USUARIO, SE DEBERA CAMBIAR
-                4. HAY MODIFICACIONES ADICIONALES QUE EN ANTERIORES VERSIONES NO TENIA, SE DEBERAN AGREGAR, EJEMPLO case "Listar"
-                 */
                 case "Listar":
                     request.setAttribute("cliente", clienteDao.getCliente());
                     request.setAttribute("clienteEdit", new modelo_customer());
@@ -277,7 +262,6 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("clienteEdit", clienteDao.getClienteId(cedula_cliente));
                     break;
 
-
                 case "Actualizar":
                     cedula_cliente = Integer.parseInt(request.getParameter("txtIdc"));
                     nombre_cliente = request.getParameter("txtNombrec");
@@ -294,16 +278,63 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Eliminar":
-                    cedula_cliente= Integer.valueOf(request.getParameter("txtIdc"));
+                    cedula_cliente = Integer.valueOf(request.getParameter("txtIdc"));
                     clienteDao.eliminarCliente(cedula_cliente);
                     request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
                     break;
 
                 default:
                     throw new AssertionError();
-            }
+            } // switch (accion){}
             request.getRequestDispatcher("jsp/cliente.jsp").forward(request, response);
         } // else if (menu.equals("clientes")) {}
+        
+        // RALIZAR ACCION A VISTA VireSles.jsp
+        else if (menu.equals("AccionVentas")) {
+            System.out.println("\n\n>> >> >> CONTROLADOR / ACCION VENTAS");
+            int BuscarCedulaCliente;
+            
+            switch (accion) {
+
+                case "BuscarCliente":
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / INICIO");
+                    BuscarCedulaCliente = Integer.parseInt(request.getParameter("InputVentaCedula"));
+                    modelo_customer ModeloClientesVentas = new modelo_customer();
+                    ModeloClientesVentas.setCustomerId(BuscarCedulaCliente);
+                    System.out.println("\n>> >> >> CONTROLADOR / CLIENTE: "+ModeloClientesVentas.toString());
+                    request.setAttribute("clienteFactura", BuscarCedulaCliente);
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / FIN");
+                    break;
+
+                case "Listar":
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / INICIO");
+
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / FIN");
+                    break;
+
+                case "Agregar":
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / AGREGAR / INICIO");
+
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / AGREGAR / FIN");
+                    break;
+
+                case "Editar":
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / EDITAR / INICIO");
+
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / EDITAR / FIN");
+                    break;
+
+                case "Eliminar":
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / INICIO");
+
+                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / FIN");
+                    break;
+
+                default:
+                    throw new AssertionError();
+            } // switch (accion){}
+            request.getRequestDispatcher("jsp/ViewSales.jsp").forward(request, response);
+        } // else if (menu.equals("AccionVentas")) {}
 
     } // protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 

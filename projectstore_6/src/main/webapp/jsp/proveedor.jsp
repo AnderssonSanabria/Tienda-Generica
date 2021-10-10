@@ -93,12 +93,15 @@
                     </form>                
                 </div>
             </div>
+                            
+            <!-- ESPACIO PARA TABLA -->
             <div class="col-sm-8">
+                <!-- TABLA DE VALORES -->
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>NIT</th>
-                            <th>NOMBRE</th>
+                            <th>NOMBRE PROVEEDOR</th>
                             <th>DIRECCION</th>
                             <th>TELEFONO</th>
                             <th>CIUDAD</th>
@@ -127,7 +130,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
-            </div>
+            </div> <!-- ESPACIO PARA TABLA -->
         </div>
         <br>    
 

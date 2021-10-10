@@ -1,0 +1,56 @@
+/* -----------------------------------------------------------------------------
+PALETA DE COLORES
+
+VERDE CLARO 1 - PRINCIPAL / rgb(123, 193, 66)
+VERDE AGUAMARINA 1 PRINCIPAL / rgb(11, 151, 132)
+ROJO PERLADO 1 / rgb(255, 67, 64)
+AZUL CLARO 1 / rgb(75, 135, 255)
+AZUL VERDOSO 1 / rgb(0,153158)
+AZUL OSCURO PROFUNDO 1 / rgb(30, 38, 73)
+NEGRPO PROFUNDO 1 / rgb(20, 23, 22)
+-----------------------------------------------------------------------------
+*/
+
+
+/* -----------------------------------------------------------------------------
+ELEMENTOS GENERALES */
+
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /*box-sizing: border-box;*/
+}
+
+body{
+    margin:0;
+    padding:0;
+    background: grey;
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 48px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #222;
+}
+
+/* -----------------------------------------------------------------------------
+TABLA DE VENTAS */
+
+table {
+    width: 100%;
+    background-color: grey;
+    background: rgb(30, 38, 73);
+}
+tbody {
+    width: 100%;
+    background-color: cian;
+    background: red;
+}
+
+th {
+    width: 30%;
+    background-color: blue;
+    background: blueviolet;
+}

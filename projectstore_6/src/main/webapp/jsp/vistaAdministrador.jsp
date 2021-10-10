@@ -77,7 +77,7 @@
                     </li>
 
                     <li class="ClassLiMenu">
-                        <a target="myFrame" href="#">
+                        <a target="myFrame" href="../Controlador?menu=AccionVentas&accion=Listar">
                             <h3>Ventas</h3>
                         </a>
                     </li>

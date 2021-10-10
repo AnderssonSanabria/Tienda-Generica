@@ -104,7 +104,10 @@
                     </form>                
                 </div>
             </div>
+            
+            <!-- ESPACIO PARA TABLA -->
             <div class="col-sm-8">
+                <!-- TABLA DE VALORES -->
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -138,7 +141,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
-            </div>
+            </div> <!-- ESPACIO PARA TABLA -->
         </div>
         <br>    
 
