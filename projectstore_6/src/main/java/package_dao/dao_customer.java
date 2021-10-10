@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package package_dao;
 
+// IMPORTACION DE ELEMENTOS
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,10 +12,6 @@ import package_conexion.conexion_database;
 import package_modelo.modelo_customer;
 import package_modelo.modelo_supplier;
 
-/**
- *
- * @author ander
- */
 public class dao_customer {
     
     // Definir los Atributos. Capa de Datos. Se comunica con la BDs
@@ -116,11 +108,12 @@ public class dao_customer {
                 cli.setCustomerPhone(res.getInt(4));
                 cli.setCustomerEmail(res.getString(5));
             }
+            System.out.println("\n>> >> >> DAO_CUSTOMER / CLIENTE: "+cli.toString());
             // CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION
             stm.close();
             res.close();
             con.close();
-            System.out.println("\n\n>> >> >> dao_customer / BUSCAR POR IDCLIENTE / CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION\n");
+            System.out.println("\n>> >> >> dao_customer / BUSCAR POR IDCLIENTE / CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION");
         } catch (SQLException er) {
             System.err.println("Error:" + er);
         }

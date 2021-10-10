@@ -103,19 +103,19 @@ insert into bd_tienda.usuarios values(106,"luis",123,"luis@tienda.com","Administ
 
 # ---------------------------------------------------------------------------
 # INSERCION DE DATOS A TABLA clientes
-insert into bd_tienda.clientes values(201,"cliente1","direccion # cliente1","320 11111","cliente1@personal.com");
-insert into bd_tienda.clientes values(202,"cliente2","direccion # cliente2","320 22222","cliente2@personal.com");
-insert into bd_tienda.clientes values(203,"cliente3","direccion # cliente3","320 33333","cliente3@personal.com");
-insert into bd_tienda.clientes values(204,"cliente4","direccion # cliente4","320 44444","cliente4@personal.com");
-insert into bd_tienda.clientes values(205,"cliente5","direccion # cliente5","320 55555","cliente5@personal.com");
+insert into bd_tienda.clientes values(201,"cliente1","direccion # cliente1",32011111,"cliente1@personal.com");
+insert into bd_tienda.clientes values(202,"cliente2","direccion # cliente2","32022222","cliente2@personal.com");
+insert into bd_tienda.clientes values(203,"cliente3","direccion # cliente3","32033333","cliente3@personal.com");
+insert into bd_tienda.clientes values(204,"cliente4","direccion # cliente4","32044444","cliente4@personal.com");
+insert into bd_tienda.clientes values(205,"cliente5","direccion # cliente5","32055555","cliente5@personal.com");
 
 # ---------------------------------------------------------------------------
 # INSERCION DE DATOS A TABLA proveedores
-insert into bd_tienda.proveedores values(301,"proveedor1","direccion # proveedor1","330 11111","proveedor1@empresa.com");
-insert into bd_tienda.proveedores values(302,"proveedor2","direccion # proveedor2","330 22222","proveedor2@empresa.com");
-insert into bd_tienda.proveedores values(303,"proveedor3","direccion # proveedor3","330 33333","proveedor3@empresa.com");
-insert into bd_tienda.proveedores values(304,"proveedor4","direccion # proveedor4","330 44444","proveedor4@empresa.com");
-insert into bd_tienda.proveedores values(305,"proveedor5","direccion #5 proveedor","330 55555","proveedor5@empresa.com");
+insert into bd_tienda.proveedores values(301,"proveedor1","direccion # proveedor1","33011111","proveedor1@empresa.com");
+insert into bd_tienda.proveedores values(302,"proveedor2","direccion # proveedor2","33022222","proveedor2@empresa.com");
+insert into bd_tienda.proveedores values(303,"proveedor3","direccion # proveedor3","33033333","proveedor3@empresa.com");
+insert into bd_tienda.proveedores values(304,"proveedor4","direccion # proveedor4","33044444","proveedor4@empresa.com");
+insert into bd_tienda.proveedores values(305,"proveedor5","direccion #5 proveedor","33055555","proveedor5@empresa.com");
 
 # ---------------------------------------------------------------------------
 # INSERCION DE DATOS A TABLA productos
@@ -149,6 +149,14 @@ select * from bd_tienda.ventas;
 # table_ 			: INDICAR TABLA DE BASE DE DATOS
 # limit N,N+1 		: RANGO DE SELECCION
 select * from database_.table_ limit 0,2;
+
+# MODIFICAR DATOS EN TABLA
+# update			: ASIGNAR DATOS
+# database_ 		: INDICAR BASE DE DATOS
+# table_ 			: INDICAR TABLA DE BASE DE DATOS
+# columna_2		: SELECCION DE COLUMNA DE DATO A MODIFICAR = "Modificar" ES EL NUEVO VALOR A MODIFICAR
+# columna_1
+update database_.table_ set columna_2 = "Modificacion" where columna_1 = "DatoDeBusqueda";
 
 # ELIMINACION DE TABLA
 # CONTIENE UNA VALIDACION DE EXISTENCIA, SI NO ENCUENTRA LA TABLA NO DETIENE LA EJECUCION
