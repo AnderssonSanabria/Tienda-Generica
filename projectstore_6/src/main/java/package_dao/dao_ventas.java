@@ -135,7 +135,7 @@ public class dao_ventas {
         String sql = "UPDATE ventas SET cedula_cliente = '" + venta.getCedula_cliente()
                 + "', cedula_usuario = '" + venta.getCedula_usuario()+ "', iva_venta='"
                 + venta.getIva_venta()+ "'" + ", total_venta = '" + venta.getTotal_venta()+ "'" 
-                + venta.getValor_venta()+ "'"
+                + ",valor_venta = '" + venta.getValor_venta()+ "'"
                 + " WHERE codigo_venta = " + venta.getCodigo_venta();
         System.out.println("\n\n>> >> >> " + sql);
         try {
