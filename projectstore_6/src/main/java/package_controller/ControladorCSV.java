@@ -30,7 +30,9 @@ public class ControladorCSV extends HttpServlet {
         
         // Capturamos la informacipon del formulario
         try {
+            
             nombre = request.getParameter("nombre");
+            nombre = "C:/Users/ander/Downloads/" + nombre;
             // Llenamos la lista con el método creado en la Clase LectorCSV
             productos = lectorCSV.leerCSVSimple(nombre);
             mensaje = "Archivo Cargado Exitosamente.";

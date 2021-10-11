@@ -59,7 +59,7 @@
                             </c:forEach>
                         </tbody>
                     </table>
-                    <a href="/" class="btn btn-success btn-lg">Regresar al Inicio</a>
+                    <a href="./jsp/productos.html" class="btn btn-success btn-lg">Regresar al Inicio</a>
                 </div>
             </div>           
         </div>
