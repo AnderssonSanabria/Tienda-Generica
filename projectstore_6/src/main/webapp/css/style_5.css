@@ -23,7 +23,8 @@ ELEMENTOS GENERALES */
 body{
     margin:0;
     padding:0;
-    background: grey;
+    background: rgb(75, 135, 255);
+    align-content: center;
 }
 
 
@@ -46,11 +47,13 @@ table {
 tbody {
     width: 100%;
     background-color: cian;
-    background: red;
+    background: grey;
 }
 
 th {
-    width: 30%;
+    width: 75%;
     background-color: blue;
-    background: blueviolet;
+    background: rgb(11, 151, 132);
+    text-align: left;
+    justify-content: left;
 }

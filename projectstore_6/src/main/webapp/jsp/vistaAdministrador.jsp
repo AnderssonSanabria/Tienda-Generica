@@ -114,7 +114,7 @@
             </div> <!-- ESPACIO DE BOTONES DE BARRA DE NAVEGACION -->
         </nav> <!-- FIN DE BARRA DE NAVEGACION -->
 
-        <div class="m-4" style="height: 550px;"> 
+        <div class="m-4" style="height: 900px;"> 
             <iframe name="myFrame" style="height: 100%; width:100%; border: none"></iframe>
         </div>
 
