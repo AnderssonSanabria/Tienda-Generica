@@ -28,11 +28,32 @@
 
                         <div>
                             <label>DATOS DE CLIENTE</label>
-                            <br> 
-                            Cedula: <input type="text" name="InputVentaCedula" class="" value="${clienteFactura.getCustomerId()}" placeholder="Cedula del Cliente">
-                            <button type="submit" name="accion" value="BuscarCliente" class="" >Buscar Cliente</button>
-                            <br>
-                            Nombre: <input type="text" name="txtNombreCliente" class="" value="${clienteFactura.getCustomerNameFull()}" placeholder="Nombre del Cliente" readonly="">
+                            <form action="Controlador?menu=AccionVentas" method="POST" novalidate>
+                                <br>
+                                Cedula: <input type="text" name="InputVentaCedula" class="" value="${clienteFactura.getCustomerId()}" placeholder="Cedula del Cliente">
+                                <button type="submit" name="accion" value="BuscarCliente" class="" >Buscar Cliente</button>
+                                <br>
+                                Nombre: <input type="text" name="txtNombreCliente" class="" value="${clienteFactura.getCustomerNameFull()}" placeholder="Nombre del Cliente" readonly="">
+                            </form>
+
+                            <form class="needs-validation" action="Controlador?menu=Clientes" method="POST" novalidate>
+                                <br>
+                                <label>Buscar por cedula cliente</label>
+
+                                <!--PROCESO JAVA -->
+                                <c:if test="${clienteEdit.getCustomerId()!=0}">
+                                    <input  type="text" name="txtIdc" value="${clienteEdit.getCustomerId()}" readonly="" class="form-control">
+                                </c:if>
+                                <c:if test="${clienteEdit.getCustomerId()==0}">
+                                    <input  type="text" name="txtIdc" class="form-control" required="">
+                                    <div class="valid-feedback">Campo OK</div>
+                                    <div class="invalid-feedback">Complete los datos</div>
+                                </c:if>
+                                <br>
+                                <input type="submit" name="accion" value="Buscar" class="btn btn-warning" >                        
+
+                            </form>  
+
                         </div>
                         <br>
                         <div>
@@ -49,7 +70,7 @@
                             <button>Agregar Productos</button>
                         </div>
                         <div>
-                            <img class="ClassLogMinTic" src="img/LogoMinTic_001.png" alt=""/>
+                            <img class="ClassLogMinTic" src="Imagen/AnimacionCarroCompras_1" alt=""/>
                         </div>
                     </th>
                     <td>REPORTE DE PRODUCTOS</td>

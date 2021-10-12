@@ -24,6 +24,7 @@ public class ControladorCSV extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("\n\n>> >> >> ControladorCSV / protected void processRequest () {}/ INICIO");
            String nombre = null;
         // Creamos una lista de tipo Producto
         List<modelo_producto> productos = new ArrayList<modelo_producto>();
@@ -32,7 +33,11 @@ public class ControladorCSV extends HttpServlet {
         try {
             nombre = request.getParameter("nombre");
             // Llenamos la lista con el método creado en la Clase LectorCSV
+            System.out.println("\n\n>> >> >> ControladorCSV / protected void processRequest () {}/ Nombre: "+nombre.toString());
+            nombre = "/productos.csv";
             productos = lectorCSV.leerCSVSimple(nombre);
+            System.out.println("\n\n>> >> >> ControladorCSV / protected void processRequest () {}/ productos: "+productos.toString());
+            
             mensaje = "Archivo Cargado Exitosamente.";
             aviso = null;
             if(productos.size() == 0){

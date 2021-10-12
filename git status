@@ -1,0 +1,32 @@
+[33m7d1af5d[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m Merge pull request #6 from AnderssonSanabria/main
+[33mfeccb59[m se corrigio error en dao_ventas y se realizo dao_detalle_ventas
+[33mbd0287b[m Se agrego modelo ventas, detalle_ventas y dao_ventas
+[33mb6681d9[m Merge branch 'FabianTorresCh:main' into main
+[33m67824cf[m V2021-10-09 : EL CODIGO ESTA TRABAJANDO BIEN : SE CORRIGIO ERROR EN EL QUERY PARA LA CREACION Y ASIGNACION DE DATOS EN LA BASE DE DATOS (ERROR EN LA INSERCION DE DATOS DE TELEFONO DE CLIENTES Y PROVEEDORES)
+[33m0482b45[m Creacion de modelos ventas y detalle_venta
+[33m81d876b[m V2021-10-07 : ACTUALIZACION DE BASE DE DATOS Y TABLAS, SE UNIFICA UN QUERY PARA LA CREACION Y MODIFICACION DE QUERIS : SE ELIMINO CARPETA ANTIGUA DE TRANSICION DE METODO DE TRABAJO : ADVERTENCIA - NO SE MUESTRA LA TABLA DE LOS CLIENTES Y PROVEEDORES, REALIZAR VERIFICACION
+[33mee1e3f8[m v2021-10-06 : MODIFICACION REALIZADA POR JUAN DAVID, PROCESOS REALIZADOS PARA SUBIR ARCHVIO CSV, FALTA LA VISTA DE PROCESOS.
+[33m5821c36[m Error de version
+[33m2d9b289[m Merge pull request #4 from AnderssonSanabria/main
+[33m347b3fa[m se ajuto funcion actualizar en seccion clientes
+[33m61bd3e8[m Merge pull request #3 from AnderssonSanabria/main
+[33m0975c68[m Se actualizo sql para la creacion de la base de datos
+[33m4e2c3bb[m Se agrego seccion de clientes
+[33mae08214[m Se agrego modal para busqueda de nit que no existe
+[33m99ccff3[m Se agrego Sql para la creacion de la base de datos
+[33mba620b2[m Se ajusto seccion proveedores
+[33me57b3f0[m V2021-09-28 : ULTIMA MODIFICACION DE CLIENTES Y PROVEEDORES, LA VISTA CLIENTES AUN SIGUE INCOMPLETA
+[33m67f5d12[m Ajuste base de datos
+[33m611274b[m Merge pull request #2 from AnderssonSanabria/main
+[33ma7303dd[m se agregaron librerias faltantes, se corrigio funcion de eliminar y actualizar usuario
+[33m652693f[m Update error.html
+[33md052cd5[m Update rememberpassword.html
+[33mb30794f[m Update rememberpassword.html
+[33m174c59f[m Update error.html
+[33mdfc0df3[m V2021-09-25 : ULTIMA MODIFICACION : CAMBIO DE VISTA DE MARRA DE MENU : PRESENTA ERROR EN LA VISTA DE RECORDAR CONTRASEÑA AL NO DEVOLVER A LA PAGINA INDEX : INGRESO DE CODIGO DE LUIS CON ULTIMAS MODIFICACIONES
+[33m1aea232[m V2021-09-25 : TRANSICION DE METODO DE TRABAJO A SPRINBOOT, CONTIENE SPRIn 1 (projectstore_5) Y TRANSISCION DE METODOLOGIA DE TRABAJO SPRINTBOOT (projectstore_6) : NO SE A REALIZADO AVANCES AL SPRINT 2
+[33me893e20[m V2021-09-21 : MENSAJES DE VALIDACION Y MODIFICACIONES
+[33m18e2114[m V2021-09-19 : MODIFICACION REALIZADA POR LUIS, SE AGREGO PROCESO DE BUSQUEDA Y CAMBIO EN LA VISTA USUARIO
+[33m8d2cba6[m V2021-09-18 - MODIFICACION PEQUEÑA
+[33mab1847b[m V2021-09-17 : SE MODIFICO LA DISPOSICION DE LOS INPUT DE ENTRADA DE NOMBRE Y CONTRASEÑA DE USUARIO
+[33me920782[m V2021-09-17 - ARCHIVO FUNCIONAL

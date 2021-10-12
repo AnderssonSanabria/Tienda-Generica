@@ -14,23 +14,23 @@ import package_dao.dao_user;
 // CUERPO DE LOGIN
 public class LoginServlet extends HttpServlet {
 
-    
     // PROCESOS DE LOGINSERVLET
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        System.out.println("\n\n>> >> >> LOGINSERVLET / INICIO\n");
+        System.out.println("\n\n>> >> >> LoginServlet / INICIO");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         if (request.getParameter("btnAcceder") != null) {
-            System.out.println("\n\n>> >> >> LOGINSERVLET / INGRESO DE USUARIO\n");
+            System.out.println(">> >> >> LoginServlet / INGRESO DE USUARIO");
             modelo_user usu = new modelo_user();
             String user = request.getParameter("txtUsuario");
             String clave = request.getParameter("txtPassword");
+            System.out.println(">> >> >> LoginServlet / INGRESO DE USUARIO / USUARIO: "+user+" CONTRASEÑA: "+clave);
             usu.setNombreUsuario(user);
             usu.setClave(clave);
             dao_user login = new dao_user();
             String estado;
-            
+
             try {
                 System.out.println("\n\n>> >> >> LOGINSERVLET / VALIDACION TIPO DE USUARIO\n");
                 estado = login.login(usu);

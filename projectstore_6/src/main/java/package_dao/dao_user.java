@@ -128,7 +128,9 @@ public class dao_user {
 
     // BUSCAR USUARIO POR CEDULA
     public modelo_user getUsuarioCedula(int CedulaB) {
+        System.out.println("\n\n>> >> >> dao_user / public modelo_user getUsuarioCedula(int CedulaB) {} / INICIO");
         String sql = "SELECT * FROM usuarios WHERE cedula_usuario=" + CedulaB;
+        System.out.println(">> >> >> dao_user / public modelo_user getUsuarioCedula(int CedulaB) {} / MYSQL CLIENTE: "+sql);
         modelo_user usu = new modelo_user();
         try {
             con = cn.Conexion();
@@ -141,13 +143,15 @@ public class dao_user {
                 usu.setCorreo(res.getString(4));
                 usu.setTipoUsuario(res.getString(5));
             }
+            System.out.println(">> >> >> dao_user / public modelo_user getUsuarioCedula(int CedulaB) {} / CLIENTE: "+usu.toString());
             // CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION
             stm.close();
             res.close();
             con.close();
-            System.out.println("\n\n>> >> >> dao_user / BUSCAR POR IDUSER / CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION\n");
+            System.out.println(">> >> >> dao_user / public modelo_user getUsuarioCedula(int CedulaB) {} / CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION\n");
         } catch (SQLException er) {
             System.err.println("Error:" + er);
+            System.out.println(">> >> >> dao_user / public modelo_user getUsuarioCedula(int CedulaB) {} / !! ERROR");
         }
         return usu;
     }

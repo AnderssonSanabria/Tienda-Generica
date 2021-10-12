@@ -46,16 +46,20 @@ public class Controlador extends HttpServlet {
         // ESTE ELEMENTO DEFINE LLA SUB-PANTALLA DE ACCIONES, CORRESPONDE A LAS ACCIONES DE LA BARRA DE MENU
         // REALIZA ACCION DE ENTRADA DE VISTA usuario.jsp
         if (menu.equals("Usuarios")) {
+            System.out.println("\n\n>> >> >> Controlador / Usuarios / INICIO");
             switch (accion) {
 
                 case "Listar":
+                    System.out.println("\n\n>> >> >> Controlador / Usuarios / accion / Listar / INICIO");
                     String tipos[] = {"Administrador", "Cliente"};
                     request.setAttribute("usuarios", usuarioDao.getUsuarios());
                     request.setAttribute("tipos", tipos);
                     request.setAttribute("usuarioEdit", new modelo_user());
+                    System.out.println(">> >> >> Controlador / Usuarios / accion / Listar / FIN");
                     break;
 
                 case "Buscar":
+                    System.out.println("\n\n>> >> >> Controlador / Usuarios / accion / Buscar / INICIO");
                     int CedulaB = Integer.valueOf(request.getParameter("txtId"));
                     modelo_user busu = new modelo_user();
                     String[] categoriasb = {"Administrador", "Cliente"};
@@ -63,6 +67,7 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("usuarioEdit", busu);
                     request.setAttribute("categorias", categoriasb);
                     request.setAttribute("cedula", busu.getCedulaUsuario()); // **** LUIS, ESTE ELEMENTO ES NUEVO
+                    System.out.println(">> >> >> Controlador / Usuarios / accion / Buscar / FIN");
                     break;
 
                 case "Agregar":
@@ -127,6 +132,7 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("jsp/usuarios.jsp").forward(request, response);
         } // if (menu.equals("Usuarios")) {}
+        //
         // REALIZA ACCION DE ENTRADA DE VISTA proveedor.jsp
         else if (menu.equals("Proveedores")) {
             int nit;
@@ -207,8 +213,6 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("jsp/proveedor.jsp").forward(request, response);
         } // else if (menu.equals("Proveedor")) {}
-        
-        
         // REALIZA ACCION DE ENTRADA DE VISTA clientes.jsp
         else if (menu.equals("Clientes")) {
             int cedula_cliente;
@@ -288,46 +292,45 @@ public class Controlador extends HttpServlet {
             } // switch (accion){}
             request.getRequestDispatcher("jsp/cliente.jsp").forward(request, response);
         } // else if (menu.equals("clientes")) {}
-        
         // RALIZAR ACCION A VISTA VireSles.jsp
         else if (menu.equals("AccionVentas")) {
-            System.out.println("\n\n>> >> >> CONTROLADOR / ACCION VENTAS");
+            System.out.println("\n\n>> >> >> Controlador / AccionVentas / INICO");
             int BuscarCedulaCliente;
-            
+
             switch (accion) {
 
                 case "BuscarCliente":
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / INICIO");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / INICIO");
                     BuscarCedulaCliente = Integer.parseInt(request.getParameter("InputVentaCedula"));
-                    modelo_customer ModeloClientesVentas = new modelo_customer();
-                    ModeloClientesVentas.setCustomerId(BuscarCedulaCliente);
-                    System.out.println("\n>> >> >> CONTROLADOR / CLIENTE: "+ModeloClientesVentas.toString());
-                    request.setAttribute("clienteFactura", BuscarCedulaCliente);
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / FIN");
+                    cliente.setCustomerId(BuscarCedulaCliente);
+                    cliente = clienteDao.getClienteId(BuscarCedulaCliente);
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / CLIENTE: " + cliente.toString());
+                    request.setAttribute("clienteFactura", cliente);
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / FIN");
                     break;
 
                 case "Listar":
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / INICIO");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / INICIO");
 
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / FIN");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / FIN");
                     break;
 
                 case "Agregar":
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / AGREGAR / INICIO");
+                    System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / Agregar / INICIO");
 
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / AGREGAR / FIN");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / Agregar / FIN");
                     break;
 
                 case "Editar":
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / EDITAR / INICIO");
+                    System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / Editar / INICIO");
 
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / EDITAR / FIN");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / Editar / FIN");
                     break;
 
                 case "Eliminar":
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / INICIO");
+                    System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / Eliminar / INICIO");
 
-                    System.out.println("\n>> >> >> CONTROLADOR / ACCION VENTAS / LISTA / FIN");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / Eliminar / FIN");
                     break;
 
                 default:

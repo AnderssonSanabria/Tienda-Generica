@@ -29,8 +29,7 @@ public class dao_producto {
     public boolean agregarProducto(modelo_producto producto) {
         boolean registrar = false; // Permite identificar si ya existe el usuario
         boolean encontrado = false; // Encuentra un usuario con el correo Institucional
-        String buscar = "SELECT * FROM productos where codigo_producto = " // Instrucción sql
-                + producto.getCodigo_producto(); // Para buscar un registro con el mismo id
+        String buscar = "SELECT * FROM productos where codigo_producto = " + producto.getCodigo_producto(); // Para buscar un registro con el mismo id
         encontrado = buscar(buscar); // Ejecutamos el método con la consulta
         if (!encontrado) {
             // La instrucción para insertar el registro

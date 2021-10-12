@@ -95,6 +95,7 @@ public class dao_customer {
 
     // BUSCAR CLIENTE POR ID
     public modelo_customer getClienteId(int id) { // **** SE RECOMIENDA CAMBIAR ESTE CODIGO SI ES NECESARIO
+        System.out.println("\n\n>> >> >> dao_customer / public modelo_customer getClienteId(int id) {} / INICIO");
         String sql = "SELECT * FROM clientes WHERE cedula_cliente=" + id;
         modelo_customer cli = new modelo_customer();
         try {
@@ -108,14 +109,15 @@ public class dao_customer {
                 cli.setCustomerPhone(res.getInt(4));
                 cli.setCustomerEmail(res.getString(5));
             }
-            System.out.println("\n>> >> >> DAO_CUSTOMER / CLIENTE: "+cli.toString());
+            System.out.println(">> >> >> DAO_CUSTOMER / GETCLIENTEID POR cedula_cliente / CLIENTE: "+cli.toString());
             // CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION
             stm.close();
             res.close();
             con.close();
-            System.out.println("\n>> >> >> dao_customer / BUSCAR POR IDCLIENTE / CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION");
+            System.out.println(">> >> >> DAO_CUSTOMER / GETCLIENTEID POR cedula_cliente / CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION");
         } catch (SQLException er) {
             System.err.println("Error:" + er);
+            System.out.println(">> >> >> DAO_CUSTOMER / GETCLIENTEID POR cedula_cliente / !! ERROR");
         }
         return cli;
     }
