@@ -8,10 +8,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Datos del archivo</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
+
     <body>
         <div class="container-fluid">
             <div class="row">
@@ -31,20 +37,21 @@
                             <strong>Error:</strong>${aviso}
                         </div>
                     </c:if>
-               </div>
+                </div>
                 <div class="col-sm-6">
                     <table borde="0" cellspacing="5" cellpadding="5" class="table table-striped">
+                        
                         <thead>
                             <tr>
-                                <th>Codigo</th>
+                                <th>CODIGO</th>
                                 <th>IVA</th>
-                                <th>Proveedor</th>
+                                <th>PROVEEDOR</th>
                                 <th>NOMBRE</th>
-                                <th>Precio Compra</th>
-                                <th>Precio Venta</th>
-                                
+                                <th>PRECIO COMPRA</th>
+                                <th>PRECIO VENTA</th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             <c:forEach items="${productos}" var="pro">
                                 <tr>
@@ -54,10 +61,10 @@
                                     <td>${pro.nombre_producto}</td>
                                     <td>${pro.precio_compra}</td>
                                     <td>${pro.precio_venta}</td>
-                                    
                                 </tr>
                             </c:forEach>
                         </tbody>
+                        
                     </table>
                     <a href="./jsp/productos.html" class="btn btn-success btn-lg">Regresar al Inicio</a>
                 </div>

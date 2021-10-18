@@ -18,7 +18,7 @@
     </head>
 
     <body>
-        
+
         <!-- SECCION - TITULO DE VISTA -->
         <div align="center">
             <label>
@@ -33,67 +33,82 @@
             <tbody>
                 <!-- FILA DE CONTENIDO DE INTERFAS GRAFICA -->
                 <tr>
-                    <!-- COLUMNA IZQUIERDA - INTERFAS DE MENU DE CLIENTE Y PRODUCTOS -->
+                    <!-- COLUMNA IZQUIERDA - INTERFAS DE MENU DE CLIENTE Y PRODUCTOS
+                    ---------------------------------------------------------------------------------------------------- -->
                     <th align="left">
 
-                        <!-- SECCION - BUSQUEDA DE CLIENTE -->
-                        <div>
-                            <!-- ACCION - FORMULARIO DE BUSQUEDA DE CLIENTE -->
-                            <form action="Controlador?menu=AccionVentas" method="POST" novalidate>
+                        <!-- SECCION - BUSQUEDA DE CLIENTE
+                        ---------------------------------------------------------------------------------------------------- -->
+                        <form action="="Controlador?menu=AccionVentas" method="POST" novalidate>
+
+                            <!-- SECCION - BUSQUEDA DE CLIENTE
+                            ---------------------------------------------------------------------------------------------------- -->
+                            <div>
                                 <label>DATOS DE CLIENTE</label>
                                 <div>
-                                    Cedula: <input type="text" name="InputVentaCedula" class="" value="${clienteFactura.getCustomerId()}" placeholder="Cedula del Cliente">
+                                    Cedula: <input type="text" name="InputVentaCedula" class="" placeholder="Cedula del Cliente"
+                                                   value="${clienteFactura.getCustomerId()}">
                                 </div>
                                 <div>
                                     <button type="submit" name="accion" value="BuscarCliente" class="" >Buscar Cliente</button>
                                 </div>
                                 <div>
-                                    Nombre: <input type="text" name="txtNombreCliente" class="" value="${clienteFactura.getCustomerNameFull()}" placeholder="Nombre del Cliente" readonly="">
+                                    Nombre: <input type="text" name="txtNombreCliente" class="" placeholder="Nombre del Cliente" readonly=""
+                                                   value="${clienteFactura.getCustomerNameFull()}">
                                 </div>
-                            </form>
-                        </div> <!-- SECCION - BUSQUEDA DE CLIENTE -->
-                        <br>
+                            </div> <!-- SECCION - BUSQUEDA DE CLIENTE -->
 
-                        <!-- SECCION - BUSQUEDA DE  PRODUCTO-->
-                        <div>
-                            <form action="action">
+                            <br>
+
+                            <!-- SECCION - BUSQUEDA DE PRODUCTO
+                            ---------------------------------------------------------------------------------------------------- -->
+                            <div>
                                 <label>DATOS DE PRODUCTO</label>
                                 <div>
-                                    Codigo producto: <input placeholder="Codigo del producto">
+                                    <!-- InpuntProductoCodigo =  txtCodigo-->
+                                    Codigo producto: <input type="text" name="InpuntProductoCodigo" placeholder="Codigo del producto"
+                                                            value="${productoFactura.getCodigo_producto()}">
                                 </div>
                                 <div>
-                                    <button>Buscar Producto</button>
+                                    <!-- AccionVentas_BuscarProducto =  buscarProducto-->
+                                    <button type="submit" name="accion" value="AccionVentas_BuscarProducto" class="" >Buscar Producto</button>
                                 </div>
                                 <div>
-                                    Producto: <input placeholder="Codigo del producto">
+                                    <!-- InputProductoNombre =  txtNombreProducto-->
+                                    Producto: <input type="text" name="InputProductoNombre" placeholder="Nombre del producto" readonly="" 
+                                                     value="${productoFactura.getNombre_producto()}">
                                 </div>
-                                <div>
-                                    Valor: <input placeholder="Valor del producto">
-                                </div>
-                            </form>
-                        </div> <!-- SECCION - BUSQUEDA DE  PRODUCTO-->
-                        <br>
+                            </div> <!-- SECCION - BUSQUEDA DE  PRODUCTO-->
 
-                        <!-- SECCION - COMPRA DE PRODUCTO -->
-                        <div>
-                            <form action="action">
+                            <br>
+
+                            <!-- SECCION - COMPRA DE PRODUCTO
+                            ---------------------------------------------------------------------------------------------------- -->
+                            <div>
                                 <label>COMPRA DE PRODUCTO</label>
                                 <div>
-                                    Cantidad: <input placeholder="Cantidad del producto">
+                                    <!-- InputProductoCantidad =  txtCantidad-->
+                                    Cantidad: <input type="number" name="InputProductoCantidad" class="" placeholder="1" style="text-align: right">
                                 </div>
                                 <div>
-                                    <button>Agrear producto</button>
+                                    <!-- InputProductoValor =  txtPrecioProducto-->
+                                    Valor: <input type="text" name="InputProductoValor" placeholder="$ 0.00" readonly="" style="text-align:right"
+                                                  value="${InputValueProductoFactura.getPrecio_venta()}">
                                 </div>
-                            </form>
-                        </div> <!-- SECCION - COMPRA DE PRODUCTO -->
-
+                                <div>
+                                    <!-- AgregarProducto =  AgregarProducto-->
+                                    <button type="submit" name="accion" value="AgregarProducto" class="">Agrear producto</button>
+                                </div>
+                            </div> <!-- SECCION - COMPRA DE PRODUCTO -->
+                        </form>
                     </th> <!-- COLUMNA IZQUIERDA - INTERFAS DE MENU DE CLIENTE Y PRODUCTOS -->
 
-                    <!-- COLUMNA DERECHA - REPORTE DE VENTA -->
+                    <!-- COLUMNA DERECHA - REPORTE DE VENTA
+                    ---------------------------------------------------------------------------------------------------- -->
                     <td>
                         REPORTE DE PRODUCTOS
                     </td> <!-- COLUMNA DERECHA - REPORTE DE VENTA -->
-                    
+
                 </tr> <!-- FILA DE CONTENIDO DE INTERFAS GRAFICA -->
             </tbody> <!-- CUERPO DE TABLA -->
         </table> <!-- TABLA DE CONTENIDO -->

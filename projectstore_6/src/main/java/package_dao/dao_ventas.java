@@ -20,13 +20,34 @@ import package_modelo.modelo_ventas;
  * @author ander
  */
 public class dao_ventas {
-        // Definir los Atributos. Capa de Datos. Se comunica con la BDs
+
+    // Definir los Atributos. Capa de Datos. Se comunica con la BDs
     Connection con = null; // Hacer la conexion a la BDs
     conexion_database cn = new conexion_database();
     Statement stm = null; // Separa el espacio para construir un comando SQL
     ResultSet res = null; // Guarda el resultado de la consulta
     PreparedStatement ps = null;
+
+    public int CalcularIdVenta(){
+    int IdVenta = 0;
+    String AccionSql ="select max(id) from venta";
     
+        try {
+            con = cn.Conexion();
+            stm = con.createStatement();
+            res = stm.executeQuery(AccionSql);
+            while (res.next()) {                
+                IdVenta = res.getInt(1);
+            }
+            stm.close();
+            res.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error: "+e);
+        }
+        
+    return IdVenta;
+    }
     
     // AGREGAR VENTA
     public List<modelo_ventas> getventa() {
@@ -102,7 +123,7 @@ public class dao_ventas {
     }
 
     // BUSCAR VENTA POR ID
-    public modelo_ventas getventaId(int id) { 
+    public modelo_ventas getventaId(int id) {
         String sql = "SELECT * FROM ventas WHERE codigo_venta=" + id;
         modelo_ventas ven = new modelo_ventas();
         try {
@@ -133,9 +154,9 @@ public class dao_ventas {
         boolean encontrado = false;
         boolean actualizar = false;
         String sql = "UPDATE ventas SET cedula_cliente = '" + venta.getCedula_cliente()
-                + "', cedula_usuario = '" + venta.getCedula_usuario()+ "', iva_venta='"
-                + venta.getIva_venta()+ "'" + ", total_venta = '" + venta.getTotal_venta()+ "'" 
-                + ",valor_venta = '" + venta.getValor_venta()+ "'"
+                + "', cedula_usuario = '" + venta.getCedula_usuario() + "', iva_venta='"
+                + venta.getIva_venta() + "'" + ", total_venta = '" + venta.getTotal_venta() + "'"
+                + ",valor_venta = '" + venta.getValor_venta() + "'"
                 + " WHERE codigo_venta = " + venta.getCodigo_venta();
         System.out.println("\n\n>> >> >> " + sql);
         try {

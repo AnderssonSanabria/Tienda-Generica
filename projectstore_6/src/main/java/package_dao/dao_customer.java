@@ -13,7 +13,7 @@ import package_modelo.modelo_customer;
 import package_modelo.modelo_supplier;
 
 public class dao_customer {
-    
+
     // Definir los Atributos. Capa de Datos. Se comunica con la BDs
     Connection con = null; // Hacer la conexion a la BDs
     conexion_database cn = new conexion_database();
@@ -50,15 +50,15 @@ public class dao_customer {
     // AGREGAR CLIENTE
     public boolean agregarCliente(modelo_customer cliente) {
         boolean registrar = false; // Permite identificar si ya existe el cliente
-        boolean encontrado = false; 
+        boolean encontrado = false;
         String buscar = "SELECT * FROM clientes where cedula_cliente = " // Instrucción sql
-                + cliente.getCustomerId(); 
+                + cliente.getCustomerId();
         encontrado = buscar(buscar); // Ejecutamos el método con la consulta
         if (!encontrado) {
             // La instrucción para insertar el registro
-            String sql = "INSERT INTO clientes values (" + cliente.getCustomerId()+ ",'" + cliente.getCustomerNameFull()
-                    + "','" + cliente.getCustomerAddress()+ "','" + cliente.getCustomerPhone()+ "','"
-                    + cliente.getCustomerEmail()+ "')";
+            String sql = "INSERT INTO clientes values (" + cliente.getCustomerId() + ",'" + cliente.getCustomerNameFull()
+                    + "','" + cliente.getCustomerAddress() + "','" + cliente.getCustomerPhone() + "','"
+                    + cliente.getCustomerEmail() + "')";
             try {
                 con = cn.Conexion();
                 stm = con.createStatement();
@@ -109,26 +109,26 @@ public class dao_customer {
                 cli.setCustomerPhone(res.getInt(4));
                 cli.setCustomerEmail(res.getString(5));
             }
-            System.out.println(">> >> >> DAO_CUSTOMER / GETCLIENTEID POR cedula_cliente / CLIENTE: "+cli.toString());
+            System.out.println(">> >> >> dao_customer / public modelo_customer getClienteId(int id) {} / CLIENTE: [[" + cli.toString() + "]]");
             // CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION
-            stm.close();
+            ps.close();
             res.close();
             con.close();
-            System.out.println(">> >> >> DAO_CUSTOMER / GETCLIENTEID POR cedula_cliente / CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION");
+            System.out.println(">> >> >> dao_customer / public modelo_customer getClienteId(int id) {} / CIERRE DE CONEXIONES Y CANALES DE FLUJO DE INFORMACION");
         } catch (SQLException er) {
             System.err.println("Error:" + er);
-            System.out.println(">> >> >> DAO_CUSTOMER / GETCLIENTEID POR cedula_cliente / !! ERROR");
+            System.out.println(">> >> >> dao_customer / public modelo_customer getClienteId(int id) {} / !! ERROR");
         }
         return cli;
     }
 
     // ACTUALIZACION DE DATOS
-    public boolean actualizarCliente (modelo_customer cliente) {
+    public boolean actualizarCliente(modelo_customer cliente) {
         boolean encontrado = false;
         boolean actualizar = false;
         String sql = "UPDATE clientes SET nombre_cliente = '" + cliente.getCustomerNameFull()
-                + "', direccion_cliente = '" + cliente.getCustomerAddress()+ "', telefono_cliente='"
-                + cliente.getCustomerPhone()+ "'" + ", email_cliente = '" + cliente.getCustomerEmail()+ "'"
+                + "', direccion_cliente = '" + cliente.getCustomerAddress() + "', telefono_cliente='"
+                + cliente.getCustomerPhone() + "'" + ", email_cliente = '" + cliente.getCustomerEmail() + "'"
                 + " WHERE cedula_cliente = " + cliente.getCustomerId();
         System.out.println("\n\n>> >> >> " + sql);
         try {

@@ -3,45 +3,78 @@ package package_controller;
 // IMPORTACION DE ELEMENTOS
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import package_dao.dao_customer;
+
 // IMPORTACION DE MODELOS
 import package_modelo.modelo_user;
 import package_modelo.modelo_supplier;
+import package_modelo.modelo_customer;
+import package_modelo.modelo_producto;
+import package_modelo.modelo_ventas;
+import package_modelo.modelo_detalle_ventas;
+
 // IMPORTACION DE DAO PROCESOS
 import package_dao.dao_user;
 import package_dao.dao_supplier;
-import package_modelo.modelo_customer;
+import package_dao.dao_customer;
+import package_dao.dao_producto;
+import package_dao.dao_ventas;
+import package_dao.dao_delalle_ventas;
 
 // CUERPO DE PROCESOS
 public class Controlador extends HttpServlet {
 
-    // IMPORTACION DE MODELOS
+    //  ASIGNACION DE MODELO A VARIABLES
     modelo_user usuario = new modelo_user();
     modelo_supplier proveedor = new modelo_supplier();
     modelo_customer cliente = new modelo_customer();
+    modelo_producto ModelProducto = new modelo_producto();
+    modelo_ventas ModeloVentas = new modelo_ventas();
+    modelo_detalle_ventas ModeloDetalleVenta = new modelo_detalle_ventas();
 
-    // IMPORTACION DE DAO
+    // ASIGNACION DE DAO A VARIABLES
     dao_user usuarioDao = new dao_user();
     dao_supplier proveedorDao = new dao_supplier();
     dao_customer clienteDao = new dao_customer();
-
+    dao_producto DaoProducto = new dao_producto();
+    dao_ventas DaoVentas = new dao_ventas();
+    dao_delalle_ventas DaoDetalleVenta = new dao_delalle_ventas();
+    
     // CRUD DE USUARIO
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // DEFINICION DE ACCIONES PARA LA BARRA DE MENU
+        List<modelo_detalle_ventas> ListDetalleVentas = new ArrayList<modelo_detalle_ventas>();
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
         String mensaje = "";
+        String MensajeAviso = null;
+        String MensajeReporte = null;
+        String Descripcion = null;
+        int NumeroFactura = 0;
+        int Operacion = 0;
+        int CedulaCliente = 0;
+        int CodigoProducto = 0;
+        int Item = 0;
+        int Cantidad = 0;
+        double Total =0;
+        double SubTotal =0;
+        double TotalIva =0;
+        double TotalFactura =0;
+        double PrecioVenta =0;
+        
 
         // ESTE ELEMENTO DEFINE LLA SUB-PANTALLA DE ACCIONES, CORRESPONDE A LAS ACCIONES DE LA BARRA DE MENU
         // REALIZA ACCION DE ENTRADA DE VISTA usuario.jsp
@@ -132,9 +165,10 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("jsp/usuarios.jsp").forward(request, response);
         } // if (menu.equals("Usuarios")) {}
-        //
-        // REALIZA ACCION DE ENTRADA DE VISTA proveedor.jsp
-        else if (menu.equals("Proveedores")) {
+        /*
+        
+        ______________________________________________________________________________
+        REALIZA ACCION DE ENTRADA DE VISTA proveedor.jsp */ else if (menu.equals("Proveedores")) {
             int nit;
             String nombre_proveedor;
             String direccion_proveedor;
@@ -150,7 +184,6 @@ public class Controlador extends HttpServlet {
 
                 case "Buscar":
                     modelo_supplier pro = new modelo_supplier();
-
                     nit = Integer.valueOf(request.getParameter("txtIdp"));
                     pro = proveedorDao.getProveedorId(nit);
                     request.setAttribute("proveedorEdit", pro);
@@ -158,10 +191,6 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Agregar":
-
-                    // IMORTANTE, ESTE CAMBIO CAMBIA DRASTICAMENTE, SE DEBERA GUARDAR EL ORDEN SEGUN LA TABLA DE BASE DE DATOS
-                    // REVISAR LA DEFINICION DE TIPOS DE VARIABLES
-                    // TENER EN CUENTA LOS NOMBRES DE LAS ENTRADAS SI ES QUE TAMBIEN SE CAMIA LOS BONOTES EN EL HTML O VISTA PROVEEDORES
                     nit = Integer.parseInt(request.getParameter("txtIdp"));
                     nombre_proveedor = request.getParameter("txtNombrep");
                     direccion_proveedor = request.getParameter("txtDireccionp");
@@ -213,8 +242,11 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("jsp/proveedor.jsp").forward(request, response);
         } // else if (menu.equals("Proveedor")) {}
-        // REALIZA ACCION DE ENTRADA DE VISTA clientes.jsp
-        else if (menu.equals("Clientes")) {
+        /*
+        
+        ______________________________________________________________________________
+        REALIZA ACCION DE ENTRADA DE VISTA clientes.jsp
+         */ else if (menu.equals("Clientes")) {
             int cedula_cliente;
             String nombre_cliente;
             String direccion_cliente;
@@ -238,9 +270,6 @@ public class Controlador extends HttpServlet {
 
                 case "Agregar":
 
-                    // IMORTANTE, ESTE CAMBIO CAMBIA DRASTICAMENTE, SE DEBERA GUARDAR EL ORDEN SEGUN LA TABLA DE BASE DE DATOS
-                    // REVISAR LA DEFINICION DE TIPOS DE VARIABLES
-                    // TENER EN CUENTA LOS NOMBRES DE LAS ENTRADAS SI ES QUE TAMBIEN SE CAMIA LOS BONOTES EN EL HTML O VISTA PROVEEDORES
                     cedula_cliente = Integer.parseInt(request.getParameter("txtIdc"));
                     nombre_cliente = request.getParameter("txtNombrec");
                     direccion_cliente = request.getParameter("txtDireccionc");
@@ -292,33 +321,92 @@ public class Controlador extends HttpServlet {
             } // switch (accion){}
             request.getRequestDispatcher("jsp/cliente.jsp").forward(request, response);
         } // else if (menu.equals("clientes")) {}
-        // RALIZAR ACCION A VISTA VireSles.jsp
-        else if (menu.equals("AccionVentas")) {
+        /*
+        
+        ______________________________________________________________________________
+        RALIZAR ACCION A VISTA VireSles.jsp
+         */ else if (menu.equals("AccionVentas")) {
             System.out.println("\n\n>> >> >> Controlador / AccionVentas / INICO");
             int BuscarCedulaCliente;
+            int BuscarProducto;
 
+            // VARIABLE DE VENTAS
             switch (accion) {
 
                 case "BuscarCliente":
-                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / INICIO");
-                    BuscarCedulaCliente = Integer.parseInt(request.getParameter("InputVentaCedula"));
-                    cliente.setCustomerId(BuscarCedulaCliente);
-                    cliente = clienteDao.getClienteId(BuscarCedulaCliente);
+                    System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / BuscarCliente / INICIO");
+                    if (request.getParameter("InputVentaCedula").isEmpty()) {
+                        MensajeAviso = "Cedula en blanco";
+                        MensajeReporte = null;
+                    } else {
+                        BuscarCedulaCliente = Integer.parseInt(request.getParameter("InputVentaCedula"));
+                        cliente.setCustomerId(BuscarCedulaCliente);
+                        cliente = clienteDao.getClienteId(BuscarCedulaCliente);
+                        if (true) {
+                            MensajeAviso = "Cedula no encontrada.";
+                            MensajeReporte = null;
+                        } else {
+                            MensajeAviso = null;
+                            MensajeReporte = "Cliente encontrado.";
+                        }
+                    }
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / CLIENTE: " + cliente.toString());
                     request.setAttribute("clienteFactura", cliente);
+                    request.setAttribute("IdVenta", NumeroFactura);
+                    request.setAttribute("Mensaje", MensajeReporte);
+                    request.setAttribute("Aviso", MensajeAviso);
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / FIN");
+                    break;
+
+                case "AccionVentas_BuscarProducto":
+                    System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / AccionVentas_BuscarProducto / INICIO");
+                    BuscarProducto = Integer.parseInt(request.getParameter("InpuntProductoCodigo"));
+                    ModelProducto.setCodigo_producto(BuscarProducto);
+                    ModelProducto = DaoProducto.BuscarProductoPorCodigo(BuscarProducto);
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / AccionVentas_BuscarProducto / PRODUCTO: " + ModelProducto.toString());
+                    request.setAttribute("IdVenta", NumeroFactura); // ESTA LINEA NO ES DEL TODO NECESARIA
+                    request.setAttribute("clienteFactura", cliente); // ESTA LINEA NO ES DEL TODO NECESARIA
+                    request.setAttribute("productoFactura", ModelProducto);
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / AccionVentas_BuscarProducto / FIN");
                     break;
 
                 case "Listar":
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / INICIO");
-
+                    NumeroFactura = DaoVentas.CalcularIdVenta();
+                    NumeroFactura += 1;
+                    System.out.println("Numero de Factura: " + NumeroFactura);
+                    request.setAttribute("IdVenta", NumeroFactura);
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / FIN");
                     break;
 
-                case "Agregar":
-                    System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / Agregar / INICIO");
-
-                    System.out.println(">> >> >> Controlador / AccionVentas / accion / Agregar / FIN");
+                case "AgregarProducto":
+                    System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / AgregarProducto / INICIO");
+                    Item +=1;
+                    NumeroFactura = Integer.parseInt(request.getParameter("InputFacturaNumero"));
+                    Descripcion = request.getParameter("txtNombreProducto");
+                    PrecioVenta = Double.parseDouble(request.getParameter("txtPrecipProducto"));
+                    Cantidad = Integer.parseInt(request.getParameter("txtCantidad"));
+                    Total = PrecioVenta * Cantidad;
+                    SubTotal += Total;
+                    TotalIva += Math.round(Total*ModelProducto.getIva_compra()); // OPERACION DE IVA - EL IVA SE DEBE VERIFICAR EL ESTADO DE ESTA VARIABLE
+                    TotalFactura = SubTotal + TotalIva;
+                    ModeloDetalleVenta = new modelo_detalle_ventas();
+                    ModeloDetalleVenta.setCodigo_detalle_venta(Item);
+                    ModeloDetalleVenta.setCodigo_venta(NumeroFactura);
+                    ModeloDetalleVenta.setCodigo_producto(CodigoProducto);
+                    ModeloDetalleVenta.setVentaDetalleDescripcion(Descripcion);
+                    ModeloDetalleVenta.setValor_venta(PrecioVenta);
+                    ModeloDetalleVenta.setCantidas_producto(Cantidad);
+                    ModeloDetalleVenta.setValor_total(Total);
+                    ListDetalleVentas.add(ModeloDetalleVenta);
+                    request.setAttribute("subtotal", SubTotal);
+                    request.setAttribute("totalIva", TotalIva);
+                    request.setAttribute("totalFactura", TotalFactura);
+                    request.setAttribute("detalleVentas", Descripcion);
+                    request.setAttribute("idVenta", NumeroFactura);
+                    request.setAttribute("ClienteFactura", cliente);
+                    request.setAttribute("ProductoFactura", ModelProducto);
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / AgregarProducto / FIN");
                     break;
 
                 case "Editar":
@@ -336,7 +424,7 @@ public class Controlador extends HttpServlet {
                 default:
                     throw new AssertionError();
             } // switch (accion){}
-            request.getRequestDispatcher("jsp/ViewSales.jsp").forward(request, response);
+            request.getRequestDispatcher("jsp/registrarVenta.jsp").forward(request, response);
         } // else if (menu.equals("AccionVentas")) {}
 
     } // protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}

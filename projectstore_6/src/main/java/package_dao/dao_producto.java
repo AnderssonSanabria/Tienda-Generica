@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package package_dao;
 
 import java.sql.Connection;
@@ -14,10 +9,7 @@ import package_conexion.conexion_database;
 import package_modelo.modelo_producto;
 import package_modelo.modelo_user;
 
-/**
- *
- * @author jsotto
- */
+
 public class dao_producto {
         // Definir los Atributos. Capa de Datos. Se comunica con la BDs
     Connection con = null; // Hacer la conexion a la BDs
@@ -55,6 +47,39 @@ public class dao_producto {
         }
         return registrar;
     }
+    
+    public modelo_producto BuscarProductoPorCodigo (int CodigoProducto) {
+        
+        System.out.println("\n\n>> >> >> dao_producto / BuscarProductoPorCodigo / INICIO");
+        String AccionSql ="select * from productos where codigo_producto = " + CodigoProducto;
+        System.out.println(">> >> >> dao_producto / BuscarProductoPorCodigo / AccionSql: ["+AccionSql+"]");
+        modelo_producto MProducto = new modelo_producto();
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(AccionSql);
+            res = ps.executeQuery();
+            while (res.next()) {
+                MProducto.setCodigo_producto(res.getInt(1));
+                MProducto.setNombre_producto(res.getString(2));
+                MProducto.setNit_proveedor(res.getInt(3));
+                MProducto.setPrecio_compra(res.getDouble(4));
+                MProducto.setIva_compra(res.getDouble(5));
+                MProducto.setPrecio_venta(res.getDouble(6));
+            }
+            System.out.println(">> >> >> dao_producto / BuscarProductoPorCodigo / MProducto: ["+MProducto.toString()+"] / "+MProducto);
+            // CIERRE DE JDBC
+            ps.close();
+            res.close();
+            con.close();
+        }
+        catch (SQLException er) {
+            System.err.println("ERROR: "+er);
+        }
+        System.out.println(">> >> >> dao_producto / BuscarProductoPorCodigo / return: ["+MProducto.toString()+"]");
+        return MProducto;
+    }
+    
+    
     
     public boolean buscar(String sql) {
         boolean encontrado = false;
