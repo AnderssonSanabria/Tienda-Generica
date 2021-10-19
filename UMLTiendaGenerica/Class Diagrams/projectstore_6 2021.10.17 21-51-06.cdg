@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="projectstore_6">
+  <ClassDiagramComponents>
+    <Class name="ProyectoCiclo3Application" package="mintic.edu.proyecto" visibility="public" xPosition="7.0" yPosition="1545.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ServletInitializer" package="mintic.edu.proyecto" visibility="public" xPosition="7.0" yPosition="1667.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="configure" returnType="SpringApplicationBuilder" visibility="protected">
+          <Argument type="SpringApplicationBuilder" name="application"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="conexion_database" package="package_conexion" visibility="public" xPosition="1008.0" yPosition="373.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="private"/>
+        <Field name="consulta" type="Statement" visibility="package"/>
+        <Field name="URL" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="USER" type="String" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="PASS" type="String" visibility="private" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="Conexion" returnType="Connection" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Controlador" package="package_controller" visibility="public" xPosition="679.0" yPosition="895.0">
+      <Fields>
+        <Field name="usuario" type="modelo_user" visibility="package"/>
+        <Field name="proveedor" type="modelo_supplier" visibility="package"/>
+        <Field name="cliente" type="modelo_customer" visibility="package"/>
+        <Field name="ModelProducto" type="modelo_producto" visibility="package"/>
+        <Field name="ModeloVentas" type="modelo_ventas" visibility="package"/>
+        <Field name="ModeloDetalleVenta" type="modelo_detalle_ventas" visibility="package"/>
+        <Field name="ModeloReporteVentas" type="modelo_reporte_ventas" visibility="package"/>
+        <Field name="usuarioDao" type="dao_user" visibility="package"/>
+        <Field name="proveedorDao" type="dao_supplier" visibility="package"/>
+        <Field name="clienteDao" type="dao_customer" visibility="package"/>
+        <Field name="DaoProducto" type="dao_producto" visibility="package"/>
+        <Field name="DaoVentas" type="dao_ventas" visibility="package"/>
+        <Field name="DaoDetalleVenta" type="dao_delalle_ventas" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="processRequest" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doGet" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="getServletInfo" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ControladorCSV" package="package_controller" visibility="public" xPosition="7.0" yPosition="797.0">
+      <Fields>
+        <Field name="lectorCSV" type="LectorCSV" visibility="package"/>
+        <Field name="mensaje" type="String" visibility="package"/>
+        <Field name="aviso" type="String" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="processRequest" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doGet" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="getServletInfo" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="LoginServlet" package="package_controller" visibility="public" xPosition="7.0" yPosition="603.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="processRequest" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doGet" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="protected">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="getServletInfo" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="dao_customer" package="package_dao" visibility="public" xPosition="1522.0" yPosition="4.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="package"/>
+        <Field name="cn" type="conexion_database" visibility="package"/>
+        <Field name="stm" type="Statement" visibility="package"/>
+        <Field name="res" type="ResultSet" visibility="package"/>
+        <Field name="ps" type="PreparedStatement" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getCliente" returnType="List&lt;modelo_customer&gt;" visibility="public"/>
+        <Method name="agregarCliente" returnType="boolean" visibility="public">
+          <Argument type="modelo_customer" name="cliente"/>
+        </Method>
+        <Method name="buscar" returnType="boolean" visibility="public">
+          <Argument type="String" name="sql"/>
+        </Method>
+        <Method name="getClienteId" returnType="modelo_customer" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="actualizarCliente" returnType="boolean" visibility="public">
+          <Argument type="modelo_customer" name="cliente"/>
+        </Method>
+        <Method name="eliminarCliente" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="dao_delalle_ventas" package="package_dao" visibility="public" xPosition="355.0" yPosition="4.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="package"/>
+        <Field name="cn" type="conexion_database" visibility="package"/>
+        <Field name="stm" type="Statement" visibility="package"/>
+        <Field name="res" type="ResultSet" visibility="package"/>
+        <Field name="ps" type="PreparedStatement" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getventa" returnType="List&lt;modelo_detalle_ventas&gt;" visibility="public"/>
+        <Method name="agregarDetalleVentas" returnType="boolean" visibility="public">
+          <Argument type="modelo_detalle_ventas" name="detalle_venta"/>
+        </Method>
+        <Method name="buscar" returnType="boolean" visibility="public">
+          <Argument type="String" name="sql"/>
+        </Method>
+        <Method name="getventaId" returnType="modelo_detalle_ventas" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="actualizarventa" returnType="boolean" visibility="public">
+          <Argument type="modelo_detalle_ventas" name="detalle_venta"/>
+        </Method>
+        <Method name="eliminarventa" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="dao_producto" package="package_dao" visibility="public" xPosition="789.0" yPosition="4.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="package"/>
+        <Field name="cn" type="conexion_database" visibility="package"/>
+        <Field name="stm" type="Statement" visibility="package"/>
+        <Field name="res" type="ResultSet" visibility="package"/>
+        <Field name="ps" type="PreparedStatement" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="agregarProducto" returnType="boolean" visibility="public">
+          <Argument type="modelo_producto" name="producto"/>
+        </Method>
+        <Method name="BuscarProductoPorCodigo" returnType="modelo_producto" visibility="public">
+          <Argument type="int" name="CodigoProducto"/>
+        </Method>
+        <Method name="buscar" returnType="boolean" visibility="public">
+          <Argument type="String" name="sql"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="dao_supplier" package="package_dao" visibility="public" xPosition="1856.0" yPosition="4.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="package"/>
+        <Field name="cn" type="conexion_database" visibility="package"/>
+        <Field name="stm" type="Statement" visibility="package"/>
+        <Field name="res" type="ResultSet" visibility="package"/>
+        <Field name="ps" type="PreparedStatement" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getProveedor" returnType="List&lt;modelo_supplier&gt;" visibility="public"/>
+        <Method name="agregarProveedor" returnType="boolean" visibility="public">
+          <Argument type="modelo_supplier" name="proveedor"/>
+        </Method>
+        <Method name="buscar" returnType="boolean" visibility="public">
+          <Argument type="String" name="sql"/>
+        </Method>
+        <Method name="getProveedorId" returnType="modelo_supplier" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="actualizarProveedor" returnType="boolean" visibility="public">
+          <Argument type="modelo_supplier" name="proveedor"/>
+        </Method>
+        <Method name="eliminarProveedor" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="dao_user" package="package_dao" visibility="public" xPosition="1194.0" yPosition="4.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="package"/>
+        <Field name="cn" type="conexion_database" visibility="package"/>
+        <Field name="stm" type="Statement" visibility="package"/>
+        <Field name="res" type="ResultSet" visibility="package"/>
+        <Field name="ps" type="PreparedStatement" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="login" returnType="String" visibility="public">
+          <Argument type="modelo_user" name="usu"/>
+        </Method>
+        <Method name="getUsuarios" returnType="List&lt;modelo_user&gt;" visibility="public"/>
+        <Method name="agregarUsuario" returnType="boolean" visibility="public">
+          <Argument type="modelo_user" name="usuario"/>
+        </Method>
+        <Method name="buscar" returnType="boolean" visibility="public">
+          <Argument type="String" name="sql"/>
+        </Method>
+        <Method name="getUsuarioCedula" returnType="modelo_user" visibility="public">
+          <Argument type="int" name="CedulaB"/>
+        </Method>
+        <Method name="actualizarUsuario" returnType="boolean" visibility="public">
+          <Argument type="modelo_user" name="usuario"/>
+        </Method>
+        <Method name="eliminarUsuario" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="dao_ventas" package="package_dao" visibility="public" xPosition="7.0" yPosition="4.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="package"/>
+        <Field name="cn" type="conexion_database" visibility="package"/>
+        <Field name="stm" type="Statement" visibility="package"/>
+        <Field name="res" type="ResultSet" visibility="package"/>
+        <Field name="ps" type="PreparedStatement" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="CalcularIdVenta" returnType="int" visibility="public"/>
+        <Method name="getventa" returnType="List&lt;modelo_ventas&gt;" visibility="public"/>
+        <Method name="agregarventa" returnType="boolean" visibility="public">
+          <Argument type="modelo_ventas" name="venta"/>
+        </Method>
+        <Method name="buscar" returnType="boolean" visibility="public">
+          <Argument type="String" name="sql"/>
+        </Method>
+        <Method name="getventaId" returnType="modelo_ventas" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="actualizarventa" returnType="boolean" visibility="public">
+          <Argument type="modelo_ventas" name="venta"/>
+        </Method>
+        <Method name="eliminarventa" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="reporteVentasXCliente" returnType="List&lt;modelo_reporte_ventas&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="LectorCSV" package="package_modelo" visibility="public" xPosition="177.0" yPosition="1065.0">
+      <Fields>
+        <Field name="separador" type="char" visibility="private"/>
+        <Field name="comillas" type="char" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="char" name="separador"/>
+          <Argument type="char" name="comillas"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="leerCSVSimple" returnType="List&lt;modelo_producto&gt;" visibility="public">
+          <Argument type="String" name="path"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="modelo_customer" package="package_modelo" visibility="public" xPosition="2063.0" yPosition="1224.0">
+      <Fields>
+        <Field name="CustomerId" type="int" visibility="private"/>
+        <Field name="CustomerNameFull" type="String" visibility="private"/>
+        <Field name="CustomerAddress" type="String" visibility="private"/>
+        <Field name="CustomerPhone" type="int" visibility="private"/>
+        <Field name="CustomerEmail" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="CustomerId"/>
+          <Argument type="String" name="CustomerNameFull"/>
+          <Argument type="String" name="CustomerAddress"/>
+          <Argument type="int" name="CustomerPhone"/>
+          <Argument type="String" name="CustomerEmail"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getCustomerId" returnType="int" visibility="public"/>
+        <Method name="setCustomerId" returnType="void" visibility="public">
+          <Argument type="int" name="CustomerId"/>
+        </Method>
+        <Method name="getCustomerNameFull" returnType="String" visibility="public"/>
+        <Method name="setCustomerNameFull" returnType="void" visibility="public">
+          <Argument type="String" name="CustomerNameFull"/>
+        </Method>
+        <Method name="getCustomerAddress" returnType="String" visibility="public"/>
+        <Method name="setCustomerAddress" returnType="void" visibility="public">
+          <Argument type="String" name="CustomerAddress"/>
+        </Method>
+        <Method name="getCustomerPhone" returnType="int" visibility="public"/>
+        <Method name="setCustomerPhone" returnType="void" visibility="public">
+          <Argument type="int" name="CustomerPhone"/>
+        </Method>
+        <Method name="getCustomerEmail" returnType="String" visibility="public"/>
+        <Method name="setCustomerEmail" returnType="void" visibility="public">
+          <Argument type="String" name="CustomerEmail"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="modelo_detalle_ventas" package="package_modelo" visibility="public" xPosition="1876.0" yPosition="1680.0">
+      <Fields>
+        <Field name="codigo_detalle_venta" type="int" visibility="private"/>
+        <Field name="codigo_producto" type="int" visibility="private"/>
+        <Field name="VentaDetalleDescripcion" type="String" visibility="private"/>
+        <Field name="codigo_venta" type="int" visibility="private"/>
+        <Field name="cantidas_producto" type="int" visibility="private"/>
+        <Field name="PrecioVentaDetalle" type="double" visibility="private"/>
+        <Field name="valor_total" type="double" visibility="private"/>
+        <Field name="valor_venta" type="double" visibility="private"/>
+        <Field name="valor_iva" type="double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="codigo_detalle_venta"/>
+          <Argument type="int" name="cantidas_producto"/>
+          <Argument type="int" name="codigo_producto"/>
+          <Argument type="int" name="codigo_venta"/>
+          <Argument type="double" name="valor_total"/>
+          <Argument type="double" name="valor_venta"/>
+          <Argument type="double" name="valor_iva"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getVentaDetalleDescripcion" returnType="String" visibility="public"/>
+        <Method name="setVentaDetalleDescripcion" returnType="void" visibility="public">
+          <Argument type="String" name="VentaDetalleDescripcion"/>
+        </Method>
+        <Method name="getPrecioVentaDetalle" returnType="double" visibility="public"/>
+        <Method name="setPrecioVentaDetalle" returnType="void" visibility="public">
+          <Argument type="double" name="PrecioVentaDetalle"/>
+        </Method>
+        <Method name="getCodigo_detalle_venta" returnType="int" visibility="public"/>
+        <Method name="setCodigo_detalle_venta" returnType="void" visibility="public">
+          <Argument type="int" name="codigo_detalle_venta"/>
+        </Method>
+        <Method name="getCantidas_producto" returnType="int" visibility="public"/>
+        <Method name="setCantidas_producto" returnType="void" visibility="public">
+          <Argument type="int" name="cantidas_producto"/>
+        </Method>
+        <Method name="getCodigo_producto" returnType="int" visibility="public"/>
+        <Method name="setCodigo_producto" returnType="void" visibility="public">
+          <Argument type="int" name="codigo_producto"/>
+        </Method>
+        <Method name="getCodigo_venta" returnType="int" visibility="public"/>
+        <Method name="setCodigo_venta" returnType="void" visibility="public">
+          <Argument type="int" name="codigo_venta"/>
+        </Method>
+        <Method name="getValor_total" returnType="double" visibility="public"/>
+        <Method name="setValor_total" returnType="void" visibility="public">
+          <Argument type="double" name="valor_total"/>
+        </Method>
+        <Method name="getValor_venta" returnType="double" visibility="public"/>
+        <Method name="setValor_venta" returnType="void" visibility="public">
+          <Argument type="double" name="valor_venta"/>
+        </Method>
+        <Method name="getValor_iva" returnType="double" visibility="public"/>
+        <Method name="setValor_iva" returnType="void" visibility="public">
+          <Argument type="double" name="valor_iva"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="modelo_producto" package="package_modelo" visibility="public" xPosition="235.0" yPosition="1832.0">
+      <Fields>
+        <Field name="codigo_producto" type="int" visibility="private"/>
+        <Field name="nombre_producto" type="String" visibility="private"/>
+        <Field name="nit_proveedor" type="int" visibility="private"/>
+        <Field name="precio_compra" type="double" visibility="private"/>
+        <Field name="precio_venta" type="double" visibility="private"/>
+        <Field name="iva_compra" type="double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="codigo_producto"/>
+          <Argument type="String" name="nombre_producto"/>
+          <Argument type="int" name="nit_proveedor"/>
+          <Argument type="double" name="precio_compra"/>
+          <Argument type="double" name="precio_venta"/>
+          <Argument type="double" name="iva_compra"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getCodigo_producto" returnType="int" visibility="public"/>
+        <Method name="setCodigo_producto" returnType="void" visibility="public">
+          <Argument type="int" name="codigo_producto"/>
+        </Method>
+        <Method name="getNombre_producto" returnType="String" visibility="public"/>
+        <Method name="setNombre_producto" returnType="void" visibility="public">
+          <Argument type="String" name="nombre_producto"/>
+        </Method>
+        <Method name="getNit_proveedor" returnType="int" visibility="public"/>
+        <Method name="setNit_proveedor" returnType="void" visibility="public">
+          <Argument type="int" name="nit_proveedor"/>
+        </Method>
+        <Method name="getPrecio_compra" returnType="double" visibility="public"/>
+        <Method name="setPrecio_compra" returnType="void" visibility="public">
+          <Argument type="double" name="precio_compra"/>
+        </Method>
+        <Method name="getPrecio_venta" returnType="double" visibility="public"/>
+        <Method name="setPrecio_venta" returnType="void" visibility="public">
+          <Argument type="double" name="precio_venta"/>
+        </Method>
+        <Method name="getIva_compra" returnType="double" visibility="public"/>
+        <Method name="setIva_compra" returnType="void" visibility="public">
+          <Argument type="double" name="iva_compra"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="modelo_reporte_ventas" package="package_modelo" visibility="public" xPosition="2329.0" yPosition="4.0">
+      <Fields>
+        <Field name="cedulaCliente" type="int" visibility="public"/>
+        <Field name="nombreCliente" type="String" visibility="public"/>
+        <Field name="ventaTotal" type="double" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="cedulaCliente"/>
+          <Argument type="String" name="nombreCliente"/>
+          <Argument type="double" name="ventaTotal"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getCedulaCliente" returnType="int" visibility="public"/>
+        <Method name="setCedulaCliente" returnType="void" visibility="public">
+          <Argument type="int" name="cedulaCliente"/>
+        </Method>
+        <Method name="getNombreCliente" returnType="String" visibility="public"/>
+        <Method name="setNombreCliente" returnType="void" visibility="public">
+          <Argument type="String" name="nombreCliente"/>
+        </Method>
+        <Method name="getVentaTotal" returnType="double" visibility="public"/>
+        <Method name="setVentaTotal" returnType="void" visibility="public">
+          <Argument type="double" name="ventaTotal"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="modelo_supplier" package="package_modelo" visibility="public" xPosition="2142.0" yPosition="345.0">
+      <Fields>
+        <Field name="SupplierNit" type="int" visibility="private"/>
+        <Field name="SupplierName" type="String" visibility="private"/>
+        <Field name="SupplierAddress" type="String" visibility="private"/>
+        <Field name="SupplierPhone" type="int" visibility="private"/>
+        <Field name="SupplierCity" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="SupplierNit"/>
+          <Argument type="String" name="SupplierName"/>
+          <Argument type="String" name="SupplierAddress"/>
+          <Argument type="int" name="SupplierPhone"/>
+          <Argument type="String" name="SupplierCity"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getSupplierNit" returnType="int" visibility="public"/>
+        <Method name="setSupplierNit" returnType="void" visibility="public">
+          <Argument type="int" name="SupplierNit"/>
+        </Method>
+        <Method name="getSupplierName" returnType="String" visibility="public"/>
+        <Method name="setSupplierName" returnType="void" visibility="public">
+          <Argument type="String" name="SupplierName"/>
+        </Method>
+        <Method name="getSupplierAddress" returnType="String" visibility="public"/>
+        <Method name="setSupplierAddress" returnType="void" visibility="public">
+          <Argument type="String" name="SupplierAddress"/>
+        </Method>
+        <Method name="getSupplierPhone" returnType="int" visibility="public"/>
+        <Method name="setSupplierPhone" returnType="void" visibility="public">
+          <Argument type="int" name="SupplierPhone"/>
+        </Method>
+        <Method name="getSupplierCity" returnType="String" visibility="public"/>
+        <Method name="setSupplierCity" returnType="void" visibility="public">
+          <Argument type="String" name="SupplierCity"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="modelo_user" package="package_modelo" visibility="public" xPosition="2229.0" yPosition="781.0">
+      <Fields>
+        <Field name="cedulaUsuario" type="int" visibility="private"/>
+        <Field name="nombreUsuario" type="String" visibility="private"/>
+        <Field name="clave" type="String" visibility="private"/>
+        <Field name="correo" type="String" visibility="private"/>
+        <Field name="tipoUsuario" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="cedulaUsuario"/>
+          <Argument type="String" name="nombreUsuario"/>
+          <Argument type="String" name="clave"/>
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="tipoUsuario"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getCorreo" returnType="String" visibility="public"/>
+        <Method name="setCorreo" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="getCedulaUsuario" returnType="int" visibility="public"/>
+        <Method name="setCedulaUsuario" returnType="void" visibility="public">
+          <Argument type="int" name="cedulaUsuario"/>
+        </Method>
+        <Method name="getNombreUsuario" returnType="String" visibility="public"/>
+        <Method name="setNombreUsuario" returnType="void" visibility="public">
+          <Argument type="String" name="nombreUsuario"/>
+        </Method>
+        <Method name="getClave" returnType="String" visibility="public"/>
+        <Method name="setClave" returnType="void" visibility="public">
+          <Argument type="String" name="clave"/>
+        </Method>
+        <Method name="getTipoUsuario" returnType="String" visibility="public"/>
+        <Method name="setTipoUsuario" returnType="void" visibility="public">
+          <Argument type="String" name="tipoUsuario"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="modelo_ventas" package="package_modelo" visibility="public" xPosition="1104.0" yPosition="1832.0">
+      <Fields>
+        <Field name="codigo_venta" type="int" visibility="private"/>
+        <Field name="cedula_cliente" type="int" visibility="private"/>
+        <Field name="cedula_usuario" type="int" visibility="private"/>
+        <Field name="iva_venta" type="double" visibility="private"/>
+        <Field name="total_venta" type="double" visibility="private"/>
+        <Field name="valor_venta" type="double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="codigo_venta"/>
+          <Argument type="int" name="cedula_cliente"/>
+          <Argument type="int" name="cedula_usuario"/>
+          <Argument type="double" name="iva_venta"/>
+          <Argument type="double" name="total_venta"/>
+          <Argument type="double" name="valor_venta"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getCodigo_venta" returnType="int" visibility="public"/>
+        <Method name="setCodigo_venta" returnType="void" visibility="public">
+          <Argument type="int" name="codigo_venta"/>
+        </Method>
+        <Method name="getCedula_cliente" returnType="int" visibility="public"/>
+        <Method name="setCedula_cliente" returnType="void" visibility="public">
+          <Argument type="int" name="cedula_cliente"/>
+        </Method>
+        <Method name="getCedula_usuario" returnType="int" visibility="public"/>
+        <Method name="setCedula_usuario" returnType="void" visibility="public">
+          <Argument type="int" name="cedula_usuario"/>
+        </Method>
+        <Method name="getIva_venta" returnType="double" visibility="public"/>
+        <Method name="setIva_venta" returnType="void" visibility="public">
+          <Argument type="double" name="iva_venta"/>
+        </Method>
+        <Method name="getTotal_venta" returnType="double" visibility="public"/>
+        <Method name="setTotal_venta" returnType="void" visibility="public">
+          <Argument type="double" name="total_venta"/>
+        </Method>
+        <Method name="getValor_venta" returnType="double" visibility="public"/>
+        <Method name="setValor_venta" returnType="void" visibility="public">
+          <Argument type="double" name="valor_venta"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="cn" source="package_dao.dao_ventas" target="package_conexion.conexion_database" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="usuarioDao" source="package_controller.Controlador" target="package_dao.dao_user" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="package_dao.dao_supplier" target="package_modelo.modelo_supplier" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="DaoDetalleVenta" source="package_controller.Controlador" target="package_dao.dao_delalle_ventas" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="package_dao.dao_user" target="package_modelo.modelo_user" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cn" source="package_dao.dao_producto" target="package_conexion.conexion_database" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="proveedor" source="package_controller.Controlador" target="package_modelo.modelo_supplier" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ModeloDetalleVenta" source="package_controller.Controlador" target="package_modelo.modelo_detalle_ventas" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ModeloReporteVentas" source="package_controller.Controlador" target="package_modelo.modelo_reporte_ventas" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="package_dao.dao_producto" target="package_modelo.modelo_producto" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="package_dao.dao_ventas" target="package_modelo.modelo_ventas" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="package_modelo.LectorCSV" target="package_modelo.modelo_producto" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="package_dao.dao_customer" target="package_modelo.modelo_customer" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cliente" source="package_controller.Controlador" target="package_modelo.modelo_customer" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cn" source="package_dao.dao_customer" target="package_conexion.conexion_database" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cn" source="package_dao.dao_user" target="package_conexion.conexion_database" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="DaoVentas" source="package_controller.Controlador" target="package_dao.dao_ventas" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="usuario" source="package_controller.Controlador" target="package_modelo.modelo_user" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="lectorCSV" source="package_controller.ControladorCSV" target="package_modelo.LectorCSV" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="package_dao.dao_ventas" target="package_modelo.modelo_reporte_ventas" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="DaoProducto" source="package_controller.Controlador" target="package_dao.dao_producto" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="proveedorDao" source="package_controller.Controlador" target="package_dao.dao_supplier" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ModeloVentas" source="package_controller.Controlador" target="package_modelo.modelo_ventas" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="clienteDao" source="package_controller.Controlador" target="package_dao.dao_customer" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="package_controller.LoginServlet" target="package_dao.dao_user"/>
+    <HasRelation name="cn" source="package_dao.dao_delalle_ventas" target="package_conexion.conexion_database" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cn" source="package_dao.dao_supplier" target="package_conexion.conexion_database" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ModelProducto" source="package_controller.Controlador" target="package_modelo.modelo_producto" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="package_dao.dao_delalle_ventas" target="package_modelo.modelo_detalle_ventas" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

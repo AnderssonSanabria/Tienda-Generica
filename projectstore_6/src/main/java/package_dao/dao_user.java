@@ -14,7 +14,6 @@ import package_modelo.modelo_user;
 // CUERPO DAO
 public class dao_user {
 
-    // Definir los Atributos. Capa de Datos. Se comunica con la BDs
     Connection con = null; // Hacer la conexion a la BDs
     conexion_database cn = new conexion_database();
     Statement stm = null; // Separa el espacio para construir un comando SQL
@@ -23,27 +22,29 @@ public class dao_user {
 
     // INGRESO DE USUARIO
     public String login(modelo_user usu) {
-        System.out.println("\n\n>> >> >> DAO_USUARIO / LOGIN / INICIO PROCESO DE CONEXION\n");
+        System.out.println("\n\n>> >> >> dao_user / public String login(modelo_user usu) {} / INICIO PROCESO DE CONEXION");
         String estado = "";
         ResultSet rs;
         try {
             con = cn.Conexion();
-            String sql = "select rol, email_usuario from usuarios where nombre_usuario=? and password=?";
+            String sql = "SELECT rol, email_usuario, cedula_usuario FROM usuarios WHERE nombre_usuario=? and password=?";
             ps = con.prepareStatement(sql);
             ps.setString(1, usu.getNombreUsuario());
             ps.setString(2, usu.getClave());
             rs = ps.executeQuery();
-            System.out.println("\n\n>> >> >> DAO_USUARIO / LOGIN / VALIDACION DE USUARIO\n");
+            System.out.println(">> >> >> dao_user / public String login(modelo_user usu) {} / SQL: "+sql);
+            System.out.println(">> >> >> dao_user / public String login(modelo_user usu) {} / VALIDACION DE USUARIO");
             if (rs.next()) {
                 estado = "true";
             }
             usu.setTipoUsuario(rs.getString("rol"));
             usu.setCorreo(rs.getString("email_usuario"));
-            System.out.println("\n\n>> >> >> DAO_USUARIO / LOGIN / USUARIO CORRECTO\n");
+            usu.setCedulaUsuario(rs.getInt("cedula_usuario"));
+            System.out.println(">> >> >> dao_user / public String login(modelo_user usu) {} / USUARIO CORRECTO");
         }
         catch (Exception e) {
             System.err.println("Error:" + e);
-            System.out.println("\n\n>> >> >> DAO_USUARIO / LOGIN / USUARIO INCORRECTO\n");
+            System.out.println(">> >> >> dao_user / public String login(modelo_user usu) {} / USUARIO INCORRECTO");
         }
         return estado;
     } // public String login(modelo_user usu) {}

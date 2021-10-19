@@ -3,12 +3,12 @@ package package_modelo;
 public class modelo_ventas {
 
     // ELEMENTOS DE MODELO
-    private int codigo_venta;
-    private int cedula_cliente;
-    private int cedula_usuario;
-    private double iva_venta;
-    private double total_venta;
-    private double valor_venta;
+    private int codigo_venta; // id
+    private int cedula_cliente; // cedulacliente
+    private int cedula_usuario; // idusuario
+    private double iva_venta; // ivaventa
+    private double total_venta; // totalventa
+    private double valor_venta; // valorventa
 
     // METODOS DE ENTRADA Y SALIDA
     public int getCodigo_venta() {

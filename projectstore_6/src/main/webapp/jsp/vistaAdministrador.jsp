@@ -84,7 +84,7 @@
                     </li>
 
                     <li class="ClassLiMenu">
-                        <a target="myFrame" href="#">
+                        <a target="myFrame" href="../jsp/reportes.html">
                             <h3>Reportes</h3>
                         </a>
                     </li>
@@ -115,7 +115,7 @@
             </div> <!-- ESPACIO DE BOTONES DE BARRA DE NAVEGACION -->
         </nav> <!-- FIN DE BARRA DE NAVEGACION -->
 
-        <div class="m-4" style="height: 900px;"> 
+        <div class="m-4" style="height: 900px; width:100%;"> 
             <iframe name="myFrame" style="height: 100%; width:100%; border: none"></iframe>
         </div>
 

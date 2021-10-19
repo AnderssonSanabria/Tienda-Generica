@@ -60,10 +60,10 @@ public class dao_producto {
             res = ps.executeQuery();
             while (res.next()) {
                 MProducto.setCodigo_producto(res.getInt(1));
-                MProducto.setNombre_producto(res.getString(2));
+                MProducto.setIva_compra(res.getDouble(2));
                 MProducto.setNit_proveedor(res.getInt(3));
-                MProducto.setPrecio_compra(res.getDouble(4));
-                MProducto.setIva_compra(res.getDouble(5));
+                MProducto.setNombre_producto(res.getString(4));
+                MProducto.setPrecio_compra(res.getDouble(5));
                 MProducto.setPrecio_venta(res.getDouble(6));
             }
             System.out.println(">> >> >> dao_producto / BuscarProductoPorCodigo / MProducto: ["+MProducto.toString()+"] / "+MProducto);

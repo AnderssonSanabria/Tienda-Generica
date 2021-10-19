@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package package_dao;
 
+// IMPORTACION DE ELEMENTOS
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,12 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import package_conexion.conexion_database;
+// IMPORTACION DE MODELOS
 import package_modelo.modelo_ventas;
+import package_modelo.modelo_reporte_ventas;
 
-/**
- *
- * @author ander
- */
+// PROCESOS DE VENTAS
 public class dao_ventas {
 
     // Definir los Atributos. Capa de Datos. Se comunica con la BDs
@@ -28,27 +23,27 @@ public class dao_ventas {
     ResultSet res = null; // Guarda el resultado de la consulta
     PreparedStatement ps = null;
 
-    public int CalcularIdVenta(){
-    int IdVenta = 0;
-    String AccionSql ="select max(id) from venta";
-    
+    public int CalcularIdVenta() {
+        int IdVenta = 0;
+        String AccionSql = "select max(codigo_venta) from ventas";
+
         try {
             con = cn.Conexion();
             stm = con.createStatement();
             res = stm.executeQuery(AccionSql);
-            while (res.next()) {                
+            while (res.next()) {
                 IdVenta = res.getInt(1);
             }
             stm.close();
             res.close();
             con.close();
         } catch (SQLException e) {
-            System.out.println("Error: "+e);
+            System.out.println("Error: " + e);
         }
-        
-    return IdVenta;
+
+        return IdVenta;
     }
-    
+
     // AGREGAR VENTA
     public List<modelo_ventas> getventa() {
         String sql = "SELECT * FROM ventas";
@@ -78,16 +73,22 @@ public class dao_ventas {
 
     // AGREGAR venta
     public boolean agregarventa(modelo_ventas venta) {
-        boolean registrar = false; // Permite identificar si ya existe el usuario
-        boolean encontrado = false; // Encuentra un usuario con el correo Institucional
-        String buscar = "SELECT * FROM ventas where codigo_venta = " // Instrucción sql
-                + venta.getCodigo_venta(); // Para buscar un registro con el mismo id
-        encontrado = buscar(buscar); // Ejecutamos el método con la consulta
+        System.out.println("\n\n>> >> >> dao_ventas / public boolean agregarventa(modelo_ventas venta) {} / INICIO");
+        boolean registrar = false;
+        boolean encontrado = false;
+        String buscar = "SELECT * FROM ventas where codigo_venta = " + venta.getCodigo_venta();
+        System.out.println(">> >> >> dao_ventas / public boolean agregarventa(modelo_ventas venta) {} / buscar: " + buscar);
+        encontrado = buscar(buscar);
         if (!encontrado) {
             // La instrucción para insertar el registro
-            String sql = "INSERT INTO ventas values (" + venta.getCodigo_venta() + ",'" + venta.getCedula_cliente()
-                    + "','" + venta.getCedula_usuario() + "','" + venta.getIva_venta() + "','"
-                    + venta.getTotal_venta() + "','" + venta.getValor_venta() + "')";
+            String sql = "INSERT INTO ventas values ("
+                    + venta.getCodigo_venta() + ",'"
+                    + venta.getCedula_cliente() + "','"
+                    + venta.getCedula_usuario() + "','"
+                    + venta.getIva_venta() + "','"
+                    + venta.getTotal_venta() + "','"
+                    + venta.getValor_venta() + "')";
+            System.out.println(">> >> >> dao_ventas / public boolean agregarventa(modelo_ventas venta) {} / SQL: " + sql);
             try {
                 con = cn.Conexion();
                 stm = con.createStatement();
@@ -96,10 +97,11 @@ public class dao_ventas {
                 stm.close();
                 con.close();
             } catch (SQLException e) {
-                System.out.println("Error: Clase dao_ventas, método agregarVenta");
+                System.out.println("Error: Clase [dao_ventas], método [agregarVenta]");
                 e.printStackTrace();
             }
         }
+        System.out.println("\n\n>> >> >> dao_ventas / public boolean agregarventa(modelo_ventas venta) {} / FIN");
         return registrar;
     }
 
@@ -191,5 +193,31 @@ public class dao_ventas {
         }
         return eliminar;
     }
+
+    // NOTA: SE DEBE REVISAR CODIGO POR NUEVO PROCESO
+    // NOTA: SE DEBE REVISAR CODIGO SQUL DE BUSQUEDA
+    // REPORTE DE VENTAS
+    public List<modelo_reporte_ventas> reporteVentasXCliente() {
+        String sql = "SELECT v.cedula_cliente, c.nombre_cliente, sum(v.total_venta) FROM ventas v, clientes c WHERE v.cedula_cliente=c.cedula_cliente group by v.cedula_cliente, c.nombre_cliente";
+        List<modelo_reporte_ventas> reporteVentas = new ArrayList<>();
+        try {
+            con = cn.Conexion();
+            stm = con.createStatement();
+            res = stm.executeQuery(sql);
+            while (res.next()) { // Recorrer todo el ResultSet
+                modelo_reporte_ventas repv = new modelo_reporte_ventas(); // Instanciamos un objeto tipo modelo_user
+                repv.setCedulaCliente(res.getInt(1));
+                repv.setNombreCliente(res.getString(2));
+                repv.setVentaTotal(res.getDouble(3));
+                reporteVentas.add(repv); // Agregarlo al ArrayList
+            } // while (res.next()) {}
+            stm.close(); // Cerrar toda la conexión a la BDs
+            res.close();
+            con.close();
+        } catch (SQLException e) {
+            System.err.println("Error: en Reporte Ventas" + e);
+        }
+        return reporteVentas; // Devuelve el ArrayList usuarios
+    } // public List<modelo_reporte_ventas> reporteVentasXCliente() {}
 
 }

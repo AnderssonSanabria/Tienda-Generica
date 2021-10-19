@@ -57,16 +57,31 @@ public class dao_delalle_ventas {
 
     // AGREGAR DETALLE VENTAS
     public boolean agregarDetalleVentas(modelo_detalle_ventas detalle_venta) {
-        boolean registrar = false; // Permite identificar si ya existe el detalle
+        System.out.println("\n\n>> >> >> dao_delalle_ventas / public boolean agregarDetalleVentas(modelo_detalle_ventas detalle_venta) {} / INICIO");
+        boolean registrar = false;
         boolean encontrado = false; 
-        String buscar = "SELECT * FROM detalle_ventas where codigo_detalle_venta  = " // Instrucción sql
-                + detalle_venta.getCodigo_detalle_venta (); // Para buscar un registro con el mismo id
+        /* CODIGO INICIAL MODIFICADO
+        String buscar = "SELECT * FROM detalle_ventas WHERE codigo_detalle_venta  = " + detalle_venta.getCodigo_detalle_venta ();
+        System.out.println(">> >> >> dao_delalle_ventas / public boolean agregarDetalleVentas(modelo_detalle_ventas detalle_venta) {} / buscar: " + buscar);
         encontrado = buscar(buscar); // Ejecutamos el método con la consulta
+        */
         if (!encontrado) {
-            // La instrucción para insertar el registro
-            String sql = "INSERT INTO detalle_ventas values (" + detalle_venta.getCodigo_detalle_venta () + ",'" + detalle_venta.getCantidas_producto()
-                    + "','" + detalle_venta.getCodigo_producto() + "','" + detalle_venta.getCodigo_venta() + "','"
-                    + detalle_venta.getValor_total() + "','" + detalle_venta.getValor_venta() + "','" + detalle_venta.getValor_iva() + "')";
+            String sql = "INSERT INTO detalle_ventas ("
+                    + "codigo_detalle_venta,"
+                    + "cantidas_producto,"
+                    + "codigo_venta,"
+                    + "valor_total,"
+                    + "valor_venta,"
+                    + "valor_iva) "
+                    + "VALUES ("
+                    + detalle_venta.getCodigo_detalle_venta() + "','"
+                    + detalle_venta.getCantidas_producto() + "','"
+                    + detalle_venta.getCodigo_venta() + "','"
+                    + detalle_venta.getValor_total() + "','"
+                    + detalle_venta.getValor_venta() + "','"
+                    + detalle_venta.getValor_iva() + ")";
+            System.out.println(">> >> >> dao_delalle_ventas / public boolean agregarDetalleVentas(modelo_detalle_ventas detalle_venta) {} / SQL: " + sql);
+            
             try {
                 con = cn.Conexion();
                 stm = con.createStatement();
@@ -79,6 +94,7 @@ public class dao_delalle_ventas {
                 e.printStackTrace();
             }
         }
+        System.out.println("\n\n>> >> >> dao_delalle_ventas / public boolean agregarDetalleVentas(modelo_detalle_ventas detalle_venta) {} / FIN");
         return registrar;
     }
 

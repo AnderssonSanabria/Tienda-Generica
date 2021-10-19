@@ -155,7 +155,7 @@ select * from database_.table_ limit 0,2;
 # database_ 		: INDICAR BASE DE DATOS
 # table_ 			: INDICAR TABLA DE BASE DE DATOS
 # columna_2		: SELECCION DE COLUMNA DE DATO A MODIFICAR = "Modificar" ES EL NUEVO VALOR A MODIFICAR
-# columna_1
+# columna_1		: 
 update database_.table_ set columna_2 = "Modificacion" where columna_1 = "DatoDeBusqueda";
 
 # ELIMINACION DE TABLA
@@ -177,5 +177,8 @@ delete from database_.table_ where columna_ = "data_";
 # table_ 			: INDICAR TABLA DE BASE DE DATOS
 # N					: DATOS DE INGRESO DE LA FILA
 insert into database_.table_ values(1,2,3,4,5);
+
+# INSERTAR COLUMNA
+alter table database_.table_ add columna_ double;
 
 # MENU DE USO 			>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
