@@ -32,26 +32,28 @@
             <img class="" src="Imagen/AnimacionCarroCompras_1.gif"  alt="" height="150px"/>
         </div>
 
-        <!-- SECCION - MENU DE VISTA
+        <!-- FORMULARIO - MENU DE VISTA
         ---------------------------------------------------------------------------------------------------- -->
-        <div class="d-flex">
-            <div class="row">
+        <form action="Controlador?menu=AccionVentas" method="POST" novalidate>
 
+            <!-- SECCION - MENU DE VISTA
+            ---------------------------------------------------------------------------------------------------- -->
+            <div class="d-flex">
+                <div class="row">
 
-                <!-- SECCION - MENU DE VENTAS
-                ---------------------------------------------------------------------------------------------------- -->
-                <div class="col-sm-5">
-                    <div class="card">
-                        <div class="card-body">
+                    <!-- SECCION - OPCIONES DE VENTAS
+                    ---------------------------------------------------------------------------------------------------- -->
+                    <div class="col-sm-5">
+                        <div class="card">
+                            <div class="card-body">
 
-                            <div class="form-group">
-                                <label>Datos del Cliente</label>
-                                <br>
-                            </div>
+                                <div class="form-group">
+                                    <label>Datos del Cliente</label>
+                                    <br>
+                                </div>
 
-                            <!-- FORMULARIO - BUSCAR CLIENTE
-                            ---------------------------------------------------------------------------------------------------- -->
-                            <form action="Controlador?menu=AccionVentas" method="POST" novalidate>
+                                <!-- SECCION - BUSCAR CLIENTE
+                                ---------------------------------------------------------------------------------------------------- -->
                                 <div class="form-group d-flex">
                                     <div class="col-sm-4">
                                         <!-- INPUT - CEDULA DE CLIENTE -->
@@ -67,17 +69,15 @@
                                         <input type="text" name="txtNombreCliente" class="form-control" placeholder="Nombre del Cliente" readonly=""
                                                value="${ClienteFactura.getCustomerNameFull()}">
                                     </div>
+                                </div> <!-- SECCION - BUSCAR CLIENTE -->
+
+                                <div class="form-group">
+                                    <label>Datos del Producto</label>
+                                    <br>
                                 </div>
-                            </form> <!-- FORMULARIO - BUSCAR CLIENTE -->
 
-                            <div class="form-group">
-                                <label>Datos del Producto</label>
-                                <br>
-                            </div>
-
-                            <!-- FORMULARIO - BUSCAR PRODUCTO
-                            ---------------------------------------------------------------------------------------------------- -->
-                            <form action="Controlador?menu=AccionVentas" method="POST" novalidate>
+                                <!-- SECCION - BUSCAR PRODUCTO
+                                ---------------------------------------------------------------------------------------------------- -->
                                 <div class="form-group d-flex">
                                     <div class="col-sm-4">
                                         <!-- INPUT - CODIGO DEL PRODUCTO -->
@@ -94,11 +94,10 @@
                                                value="${ProductoFactura.getNombre_producto()}"> 
                                     </div>
                                 </div>
-                            </form> <!-- FORMULARIO - BUSCAR PRODUCTO -->
+                                </form> <!-- SECCION - BUSCAR PRODUCTO -->
 
-                            <!-- FORMULARIO - AGREGAR PRODUCTO
----------------------------------------------------------------------------------------------------- -->
-                            <form action="Controlador?menu=AccionVentas" method="POST" novalidate>
+                                <!-- SECCION - AGREGAR PRODUCTO
+    ---------------------------------------------------------------------------------------------------- -->
                                 <div class="form-group d-flex">
                                     <div class="col-sm-6">
                                         <button type="submit" name="accion" value="AgregarProducto" class="btn btn-outline-primary"> Agregar producto</button>
@@ -110,126 +109,127 @@
                                         <input type="text" name="txtPrecioProducto" style="text-align: right" class="form-control" placeholder="$/ 0,000.00"
                                                value="${ProductoFactura.getPrecio_venta()}">
                                     </div>
-                                </div>
-                            </form> <!-- FORMULARIO - AGREGAR PRODUCTO -->
-                            
-                            
-                        </div>
-                        <!-- SECCION - ADICIONAL -->
-                        <div class="form-group d-flex">
-                            <div class="col-sm-4">
-                                <c:if test="${Mensaje != null}">
-                                    <div class="alert alert-success alert-dismissable">
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <strong>Resultado !</strong>${Mensaje}
-                                    </div>
-                                </c:if>
-                                <c:if test="${Aviso != null}">
-                                    <div class="alert alert-danger alert-dismissable">
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <strong>Cuidado !</strong>${Aviso}
-                                    </div>
-                                </c:if>
+                                </div> <!-- SECCION - AGREGAR PRODUCTO -->
 
                             </div>
-                        </div>
-                    </div>
-                </div> <!-- SECCION - MENU DE VISTA -->
 
-                <!-- SECCION - TABLA DE REPORTE DE VENTAS
-                ---------------------------------------------------------------------------------------------------- -->
-                <div class="col-sm-7">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex col-sm-4 ml-auto">
-                                <label style="width: 20">Factura N°: </label>
-                                <input type="text" name="txtNumeroFactura" style="text-align: right" class="form-control" disabled="" readonly=""
-                                       value="${IdVenta}">
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="col-sm-12 ml-auto">
-                                <table border="0" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Nro</th>
-                                            <th>Codigo</th>
-                                            <th>Descripción</th>
-                                            <th>Precio</th>
-                                            <th>Cantidad</th>
-                                            <th>Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${DetalleVentas}" var="Listar">
-                                            <tr>
-                                                <td>${Listar.getCodigo_detalle_venta()}</td>
-                                                <td>${Listar.getCodigo_producto()}</td>
-                                                <td>${Listar.getVentaDetalleDescripcion()}</td>
-                                                <td>${Listar.getPrecioVentaDetalle()}</td>
-                                                <td>${Listar.getCantidas_producto()}</td>
-                                                <td>${Listar.getValor_total()}</td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
+                            <!-- SECCION - ADICIONAL
+    ---------------------------------------------------------------------------------------------------- -->
                             <div class="form-group d-flex">
-                                <table border="0" class="table table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <button type="submit" name="accion" value="guardarFactura" class="btn btn-success"> Generar Factura</button>
-                                            </td>
-                                            <td>
-                                                <button type="submit" name="accion" value="agregarProducto" class="btn btn-danger"> Cancelar Registro</button>
-                                            </td>
-                                            <td>
-                                                <label>Subtotal: </label>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="txtSubtotalFactura" style="text-align: right" class="form-control" placeholder="$/ 0,000.00" size="20" readonly="" 
-                                                       value="${Subtotal}">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                                <label>Valor Iva: </label>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="txtTotalIva" style="text-align: right" class="form-control" placeholder="$/ 0,000.00" size="20" readonly="" 
-                                                       value="${TotalIva}">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                                <label>Total con Iva: </label>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="txtTotalConIva" style="text-align: right" class="form-control" placeholder="$/ 0,000.00" size="20" readonly="" 
-                                                       value="${TotalFactura}">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="col-sm-4">
+                                    <c:if test="${Mensaje != null}">
+                                        <div class="alert alert-success alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            <strong>Resultado !</strong>${Mensaje}
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${Aviso != null}">
+                                        <div class="alert alert-danger alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            <strong>Cuidado !</strong>${Aviso}
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </div> <!-- SECCION - ADICIONAL -->
+
                         </div>
-                    </div>
-                </div> <!-- SECCION - TABLA DE REPORTE DE VENTAS -->
+                    </div> <!-- SECCION - OPCIONES DE VENTAS -->
 
-            </div>
-        </div> <!-- SECCION - MENU DE VISTA -->
-
+                    <form action="Controlador?menu=AccionVentas" method="POST" novalidate>
+                        <!-- SECCION - TABLA DE REPORTE DE VENTAS
+                        ---------------------------------------------------------------------------------------------------- -->
+                        <div class="col-sm-7">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex col-sm-4 ml-auto">
+                                        <label style="width: 20">Factura N°: </label>
+                                        <input type="text" name="txtNumeroFactura" style="text-align: right" class="form-control" disabled="" readonly=""
+                                               value="${IdVenta}">
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="col-sm-12 ml-auto">
+                                        <table border="0" class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nro</th>
+                                                    <th>Codigo</th>
+                                                    <th>Descripción</th>
+                                                    <th>Precio</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach items="${DetalleVentas}" var="Listar">
+                                                    <tr>
+                                                        <td>${Listar.getCodigo_detalle_venta()}</td>
+                                                        <td>${Listar.getCodigo_producto()}</td>
+                                                        <td>${Listar.getVentaDetalleDescripcion()}</td>
+                                                        <td>${Listar.getPrecioVentaDetalle()}</td>
+                                                        <td>${Listar.getCantidas_producto()}</td>
+                                                        <td>${Listar.getValor_total()}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="form-group d-flex">
+                                        <table border="0" class="table table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <button type="submit" name="accion" value="guardarFactura" class="btn btn-success"> Generar Factura</button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" name="accion" value="agregarProducto" class="btn btn-danger"> Cancelar Registro</button>
+                                                    </td>
+                                                    <td>
+                                                        <label>Subtotal: </label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="txtSubtotalFactura" style="text-align: right" class="form-control" placeholder="$/ 0,000.00" size="20" readonly="" 
+                                                               value="${Subtotal}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        <label>Valor Iva: </label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="txtTotalIva" style="text-align: right" class="form-control" placeholder="$/ 0,000.00" size="20" readonly="" 
+                                                               value="${TotalIva}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        <label>Total con Iva: </label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="txtTotalConIva" style="text-align: right" class="form-control" placeholder="$/ 0,000.00" size="20" readonly="" 
+                                                               value="${TotalFactura}">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- SECCION - TABLA DE REPORTE DE VENTAS -->
+                    </form>
+                </div>
+            </div> <!-- SECCION - MENU DE VISTA -->
+        </form> <!-- FORMULARIO - MENU DE VISTA -->
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

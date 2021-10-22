@@ -24,9 +24,11 @@ public class dao_ventas {
     PreparedStatement ps = null;
 
     public int CalcularIdVenta() {
+        System.out.println("\n\n>> >> >> dao_ventas / public int CalcularIdVenta() {} / INICIO");
         int IdVenta = 0;
+        System.out.println(">> >> >> dao_ventas / public int CalcularIdVenta() {} / IdVenta: ["+IdVenta+"]");
         String AccionSql = "select max(codigo_venta) from ventas";
-
+        System.out.println(">> >> >> dao_ventas / public int CalcularIdVenta() {} / IdVenta: ["+IdVenta+"]");
         try {
             con = cn.Conexion();
             stm = con.createStatement();
@@ -40,7 +42,7 @@ public class dao_ventas {
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         }
-
+        System.out.println(">> >> >> dao_ventas / public int CalcularIdVenta() {} / IdVenta: ["+IdVenta+"]");
         return IdVenta;
     }
 

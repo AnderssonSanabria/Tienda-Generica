@@ -342,6 +342,8 @@ public class Controlador extends HttpServlet {
             } // switch (accion){}
             request.getRequestDispatcher("jsp/cliente.jsp").forward(request, response);
         } // else if (menu.equals("clientes")) {}
+        //
+        //
         // ______________________________________________________________________________
         // REALIZA ACCION DE ENTRADA DE VISTA registrarVenta.jsp
         else if (menu.equals("AccionVentas")) {
@@ -358,9 +360,13 @@ public class Controlador extends HttpServlet {
                         MensajeAviso = "Cedula en blanco";
                         MensajeReporte = null;
                     } else {
+                        System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / Parametre [Integer.parseInt(request.getParameter(\"txtCedula\"))]: [" + Integer.parseInt(request.getParameter("txtCedula")) + "]");
                         BuscarCedulaCliente = Integer.parseInt(request.getParameter("txtCedula"));
+                        System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / Int BuscarCedulaCliente: [" + BuscarCedulaCliente + "]");
                         cliente.setCustomerId(BuscarCedulaCliente);
                         cliente = clienteDao.getClienteId(BuscarCedulaCliente);
+                        System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / Parametre clienteDao.getClienteId(BuscarCedulaCliente): [" + clienteDao.getClienteId(BuscarCedulaCliente) + "]");
+                        System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / Model cliente: [" + cliente + "]");
                         if (cliente.getCustomerNameFull() == null) {
                             MensajeAviso = "Cedula no encontrada.";
                             MensajeReporte = null;
@@ -369,8 +375,9 @@ public class Controlador extends HttpServlet {
                             MensajeReporte = "Cliente encontrado.";
                         }
                     }
-                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / cliente: [" + cliente+"]");
-                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / cliente.toString(): [" + cliente.toString()+"]");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / cliente: [" + cliente + "]");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / cliente.toString(): [" + cliente.toString() + "]");
+                    System.out.println(">> >> >> Controlador / AccionVentas / accion / BuscarCliente / cliente.getCustomerNameFull(): [" + cliente.getCustomerNameFull() + "]");
                     request.setAttribute("IdVenta", NumeroFactura);
                     request.setAttribute("Aviso", MensajeAviso);
                     request.setAttribute("Mensaje", MensajeReporte);
@@ -403,7 +410,12 @@ public class Controlador extends HttpServlet {
                     System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / AgregarProducto / INICIO");
                     Item += 1;
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / Item: [" + Item + "]");
+                    /* METODO ORIGINAL
                     NumeroFactura = Integer.parseInt(request.getParameter("txtNumeroFactura"));
+                     */
+                    // METODO ALTERNATIVO Y FUNCIONAL
+                    NumeroFactura = DaoVentas.CalcularIdVenta();
+                    NumeroFactura += 1;
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / NumeroFactura: [" + NumeroFactura + "]");
                     Descripcion = request.getParameter("txtNombreProducto");
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / Descripcion: [" + Descripcion + "]");
@@ -415,6 +427,7 @@ public class Controlador extends HttpServlet {
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / Total: [" + Total + "]");
                     SubTotal += Total;
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / SubTotal: [" + SubTotal + "]");
+                    // OPERACION DE IVA SE DEBE REALIZAR CON DECIMALES [ 0.19 ]
                     TotalIva += Math.round(Total * ModelProducto.getIva_compra()); // OPERACION DE IVA - EL IVA SE DEBE VERIFICAR EL ESTADO DE ESTA VARIABLE
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / Listar / TotalIva: [" + TotalIva + "]");
                     TotalFactura = SubTotal + TotalIva;
@@ -448,7 +461,8 @@ public class Controlador extends HttpServlet {
                     System.out.println("\n\n>> >> >> Controlador / AccionVentas / accion / CancelarFactura / INICIO");
                     request.setAttribute("Aviso", "NOS RETIRAMOS POR LO PRONTO");
                     request.setAttribute("Mensaje", "NO SE BRABA NADA");
-                    request.getRequestDispatcher("Controlador?menu=AccionVentas&accion=Listar").forward(request, response);
+                    // USO ALTERNATIVO DE LINEA, CUADNO SE REALIZA LA ACCION DE CANCELAR, DEBE REALIZAR ACCION DE NUEVO LISTADO, ESTE CODIGO ES ALTERNATIVO
+                    // request.getRequestDispatcher("Controlador?menu=AccionVentas&accion=Listar").forward(request, response);
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / CancelarFactura / FIN");
                     break;
 
@@ -459,10 +473,10 @@ public class Controlador extends HttpServlet {
                     TotalIva = Integer.parseInt(request.getParameter("txtTotalIva"));
                     SubTotal = Integer.parseInt(request.getParameter("txtSubtotalFactura"));
                     TotalFactura = Integer.parseInt(request.getParameter("txtTotalConIva"));
-
+                    // POR ERROR EN CODIGO EN LA PRIMERA PARTE, SE DEFINE EL USUARIO [101] COMO PREDETERMINADO
+                    // USUARIO DE VENTAS PREDETERMINADO
                     int Venta_UsuarioVenta = 101;
-
-                    System.out.println("IDENTIFICACION DE USUARIO: [" + Venta_UsuarioVenta + "]");
+                    System.out.println("IDENTIFICACION DE USUARIO PREDEFINIDO: [" + Venta_UsuarioVenta + "]");
 
                     ModeloVentas.setCodigo_venta(NumeroFactura);
                     ModeloVentas.setCedula_cliente(CedulaCliente);
@@ -472,7 +486,6 @@ public class Controlador extends HttpServlet {
                     ModeloVentas.setCedula_usuario(Venta_UsuarioVenta);
 
                     boolean CreadoVenta = DaoVentas.agregarventa(ModeloVentas);
-
                     if (CreadoVenta) {
                         MensajeAviso = null;
                         MensajeReporte = "Registro de venta creada";
@@ -480,20 +493,16 @@ public class Controlador extends HttpServlet {
                         MensajeAviso = "No se puede registrar la venta";
                         MensajeReporte = null;
                     }
-
                     for (modelo_detalle_ventas ModeloDetalleVenta : ListDetalleVentas) {
                         System.out.println("modelo_detalle_ventas: " + ModeloDetalleVenta.toString());
                     }
-
                     for (modelo_detalle_ventas ModeloDetalleVenta : ListDetalleVentas) {
                         System.out.println("modelo_detalle_ventas: " + ModeloDetalleVenta.toString());
                         DaoDetalleVenta.agregarDetalleVentas(ModeloDetalleVenta);
                     }
-
                     request.setAttribute("Mensaje", MensajeReporte);
                     request.setAttribute("Aviso", MensajeAviso);
                     request.getRequestDispatcher("Controlador?menu=AccionVentas&accion=Listar").forward(request, response);
-
                     System.out.println(">> >> >> Controlador / AccionVentas / accion / GenerarFactura / FIN");
                     break;
 
@@ -503,6 +512,10 @@ public class Controlador extends HttpServlet {
             } // switch (accion){}
             request.getRequestDispatcher("jsp/registrarVenta.jsp").forward(request, response);
         } // else if (menu.equals("AccionVentas")) {}
+        //
+        //
+        // ______________________________________________________________________________
+        // REALIZA ACCION DE ENTRADA DE VISTA reportes.jsp
         else if (menu.equals("Reportes")) {
             switch (accion) {
 
